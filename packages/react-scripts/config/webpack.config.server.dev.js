@@ -4,8 +4,11 @@ process.env.NODE_ENV = 'development';
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
-const config = require('./webpack.config.dev');
 const paths = require('./paths');
+const { applyConfig } = require('./shared');
+
+const config = applyConfig(require('./webpack.config.dev'));
+const oneOf = config.module.rules.find(rule => rule.oneOf).oneOf;
 
 // Set output object
 config.output = {
@@ -17,71 +20,38 @@ config.output = {
 // Set entry array
 config.entry = [path.join(paths.appSrc, 'server', 'index.js')];
 
-// Find and remove pre eslint rule
-const preRuleIndex = config.module.rules.findIndex(
-  rule => rule.enforce === 'pre'
-);
-if (preRuleIndex > 0) {
-  config.module.rules.splice(preRuleIndex, 1);
+// Remove eslint Pre rule
+const preIndex = config.module.rules.findIndex(rule => rule.enforce === 'pre');
+if (preIndex > 0) {
+  config.module.rules.splice(preIndex, 1);
 }
 
-const oneOf = config.module.rules.find(rule => rule.oneOf);
-
-// Remove CSS loader
-const cssRuleIndex = oneOf.findIndex(
-  rule => rule.exclude && rule.exclude.test('.module.css')
-);
-if (cssRuleIndex > 0) {
-  oneOf.splice(cssRuleIndex, 1);
-}
-
-// Work with CSS module loader
+// MiniCssExtractPlugin
+// ====================
 const cssModuleRule = oneOf.find(
-  rule => rule.include && rule.include.test('.css')
+  rule => rule.test && rule.test instanceof RegExp && rule.test.test('.css')
 );
 if (cssModuleRule) {
-  // Update test regular expression to match all css and scss files
-  cssModuleRule.test = /(\.scss|\.sass|\.css)$/;
-
-  // Add MiniExtractText Plugin
   cssModuleRule.use.splice(0, 0, MiniCssExtractPlugin.loader);
-
-  // Find css-loader
-  const cssLoader = cssModuleRule.use.find(
-    rule => rule.loader && rule.loader === require.resolve('css-loader')
+  const styleLoaderIndex = cssModuleRule.use.findIndex(
+    loader => loader === require.resolve('style-loader')
   );
-
-  if (cssLoader) {
-    // Change Local Ident Name
-    cssLoader.localIdentName = '[name]_[local]_[hash:base64:5]';
+  if (styleLoaderIndex > 0) {
+    cssModuleRule.use.splice(styleLoaderIndex, 1);
   }
-
-  // Add Sass Loader
-  cssModuleRule.use.push({
-    loader: require.resolve('sass-loader'),
-    options: {
-      outputStyle: 'expanded',
-    },
-  });
 }
-
-// Add SVG Loader
-oneOf.push({
-  test: /\.jsx.svg$/,
-  use: [
-    {
-      loader: require.resolve('babel-loader'),
-      options: {
-        babelrc: false,
-        presets: [require.resolve('babel-preset-react-app')],
-      },
-    },
-    require.resolve('svg-to-jsx-loader'),
-  ],
-});
+config.plugins.push(
+  new MiniCssExtractPlugin({
+    filename: 'static/js/[name].[chunkhash:8].css',
+    chunkFilename: 'static/js/[name].[chunkhash:8].chunk.css',
+  })
+);
 
 // Delete node object
 delete config.node;
+
+// Remove optimization
+delete config.optimization;
 
 // Set target to node
 config.target = 'node';
@@ -90,4 +60,6 @@ config.target = 'node';
 config.devtool = 'cheap-module-source-map';
 
 // Get my config
-console.log(config);
+console.log(require('util').inspect(config, { showHidden: true, depth: null }));
+
+module.exports = config;

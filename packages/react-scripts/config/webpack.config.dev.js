@@ -202,10 +202,7 @@ module.exports = {
                   // @remove-on-eject-begin
                   babelrc: false,
                   // @remove-on-eject-end
-                  presets: [
-                    require.resolve('babel-preset-react-app'),
-                    require.resolve('babel-preset-stage-0'),
-                  ],
+                  presets: [require.resolve('babel-preset-react-app')],
                   plugins: [
                     [
                       require.resolve('babel-plugin-named-asset-import'),
@@ -216,13 +213,6 @@ module.exports = {
                           },
                         },
                       },
-                    ],
-                    require.resolve('babel-plugin-transform-decorators-legacy'),
-                    [
-                      require.resolve(
-                        'babel-plugin-transform-class-properties'
-                      ),
-                      { loose: true },
                     ],
                   ],
                   // This is a feature of `babel-loader` for webpack (not Babel itself).

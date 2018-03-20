@@ -89,6 +89,15 @@ module.exports = function(
 
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
+  appPackage.dependencies['express'] = '4.16.3';
+  appPackage.dependencies['compression'] = '1.7.2';
+  appPackage.dependencies['helmet'] = '3.12.0';
+  appPackage.dependencies['hpp'] = '0.2.2';
+  appPackage.dependencies['react-helmet'] = '5.2.0';
+  appPackage.dependencies['react-jobs'] = '1.0.0';
+  appPackage.dependencies['mobx-react'] = '5.0.0';
+  appPackage.dependencies['mobx'] = '4.1.0';
+  appPackage.dependencies['axios'] = '0.18.0';
 
   // Setup the script rules
   appPackage.scripts = {
@@ -184,6 +193,17 @@ module.exports = function(
       console.error(`\`${command} ${args.join(' ')}\` failed`);
       return;
     }
+  }
+
+  // Install dependencies
+  console.log();
+  process.stdout.write('Installing @ueno packages...');
+  const proc = spawn.sync(command, 'install', { stdio: 'inherit' });
+  if (proc.status !== 0) {
+    console.error(`\`${command} ${args.join(' ')}\` failed`);
+    return;
+  } else {
+    console.log(' done!');
   }
 
   if (tryGitInit(appPath)) {

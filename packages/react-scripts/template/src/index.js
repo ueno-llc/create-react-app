@@ -1,12 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import { render } from '@ueno/react-scripts/lib/client';
+import Store from './store';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// Store
+const store = new Store();
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// Container node
+const container = document.getElementById('root');
+
+// Render the app
+render(App, store, container);
+
+// HMR Support
+if (module.hot) {
+  module.hot.accept('./App', () => {
+    render(require('./App').default, store, container);
+  });
+}
