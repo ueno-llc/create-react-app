@@ -32,7 +32,7 @@ const cssModuleRule = oneOf.find(
   rule => rule.test && rule.test instanceof RegExp && rule.test.test('.css')
 );
 if (cssModuleRule) {
-  cssModuleRule.use.splice(0, 0, MiniCssExtractPlugin.loader);
+  cssModuleRule.use.splice(1, 0, MiniCssExtractPlugin.loader);
   const styleLoaderIndex = cssModuleRule.use.findIndex(
     loader => loader === require.resolve('style-loader')
   );

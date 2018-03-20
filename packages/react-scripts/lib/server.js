@@ -20,10 +20,7 @@ const appDirectory = fs.realpathSync(process.cwd());
 const isDev =
   typeof WEBPACK_MODE !== 'undefined' && WEBPACK_MODE === 'development';
 const { REMOTE_PORT: port, HOST: host = 'localhost' } = process.env;
-const buildDir = path.join(
-  appDirectory,
-  isDev ? './node_modules/@ueno/react-scripts/config/build' : './build'
-);
+const buildDir = path.join(appDirectory, './build');
 
 // Get server manifest
 const getManifest = () => {

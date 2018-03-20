@@ -54,6 +54,7 @@
     "html-webpack-plugin": "3.0.7",
     "identity-obj-proxy": "3.0.0",
     "jest": "22.4.2",
+    "mime": "2.2.0",
     "mini-css-extract-plugin": "^0.2.0",
     "node-hot-loader": "1.6.0",
     "node-sass": "4.7.2",

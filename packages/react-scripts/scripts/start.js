@@ -16,7 +16,7 @@ process.env.NODE_ENV = 'development';
 // ignoring them. In the future, promise rejections that are not handled will
 // terminate the Node.js process with a non-zero exit code.
 process.on('unhandledRejection', err => {
-  throw err;
+  console.log('create-react-app error', err);
 });
 
 // Ensure environment variables are read.
@@ -29,8 +29,12 @@ if (process.env.SKIP_PREFLIGHT_CHECK !== 'true') {
 }
 // @remove-on-eject-end
 
+const path = require('path');
+const http = require('http');
 const chalk = require('chalk');
 const webpack = require('webpack');
+const spawn = require('child_process').spawn;
+const detect = require('detect-port-alt');
 const WebpackDevServer = require('webpack-dev-server');
 const clearConsole = require('react-dev-utils/clearConsole');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
@@ -42,15 +46,20 @@ const {
 } = require('react-dev-utils/WebpackDevServerUtils');
 const openBrowser = require('react-dev-utils/openBrowser');
 const paths = require('../config/paths');
-const config = require('../config/webpack.config.dev');
+const config = require('../config/webpack.config.client.dev');
 const createDevServerConfig = require('../config/webpackDevServer.config');
 
 const isInteractive = process.stdout.isTTY;
 
 // Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
+if (!checkRequiredFiles([paths.appIndexJs])) {
   process.exit(1);
 }
+
+const devWebpackConfigPath = path.join(
+  paths.ownPath.replace(process.cwd(), '.'),
+  'config/webpack.config.server.dev.js'
+);
 
 // Tools like Cloud9 rely on this.
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
@@ -73,6 +82,13 @@ if (process.env.HOST) {
   console.log();
 }
 
+const onResponsive = (hostname, port, cb) =>
+  setTimeout(() => {
+    http
+      .get({ hostname, port, path: '/', agent: false }, cb)
+      .on('error', () => onResponsive(hostname, port, cb));
+  }, 1000);
+
 // We require that you explictly set browsers and do not fall back to
 // browserslist defaults.
 const { checkBrowsers } = require('react-dev-utils/browsersHelper');
@@ -82,14 +98,33 @@ checkBrowsers(paths.appPath)
     // run on a different port. `choosePort()` Promise resolves to the next free port.
     return choosePort(HOST, DEFAULT_PORT);
   })
-  .then(port => {
-    if (port == null) {
+  .then(port =>
+    detect(port + 1).then(webpackDevServerPort => {
+      return [webpackDevServerPort, port];
+    })
+  )
+  .then(([port, portServer]) => {
+    if (port == null || portServer == null) {
       // We have not found a port.
       return;
     }
+    // Start server
+    const serverEnv = Object.create(process.env);
+    serverEnv.PORT = portServer;
+    serverEnv.REMOTE_PORT = port;
+    const server = spawn(
+      './node_modules/.bin/node-hot',
+      ['--config', devWebpackConfigPath],
+      { stdio: 'inherit', env: serverEnv }
+    );
+    // Set local port
+    process.env.LOCAL_PORT = portServer;
+    config.output.publicPath = `http://${HOST}:${port}/`;
+
+    // Begin webpack devserver sequence
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
     const appName = require(paths.appPackageJson).name;
-    const urls = prepareUrls(protocol, HOST, port);
+    const urls = prepareUrls(protocol, HOST, portServer);
     // Create a webpack compiler that is configured with custom messages.
     const compiler = createCompiler(
       webpack,
@@ -116,12 +151,16 @@ checkBrowsers(paths.appPath)
         clearConsole();
       }
       console.log(chalk.cyan('Starting the development server...\n'));
+    });
+
+    onResponsive(HOST, portServer, () => {
       openBrowser(urls.localUrlForBrowser);
     });
 
     ['SIGINT', 'SIGTERM'].forEach(function(sig) {
       process.on(sig, function() {
         devServer.close();
+        server.kill();
         process.exit();
       });
     });

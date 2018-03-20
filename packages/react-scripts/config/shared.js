@@ -1,5 +1,6 @@
 'use strict';
 
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 
@@ -64,7 +65,7 @@ function applyConfig(config) {
   }
 
   // Add SVG Loader
-  oneOf.push({
+  oneOf.splice(0, 0, {
     test: /\.jsx.svg$/,
     use: [
       {
@@ -84,6 +85,12 @@ function applyConfig(config) {
   // Go ahead and replace plugins list
   config.plugins = config.plugins.filter(
     plugin => !removePlugins.find(p => plugin instanceof p)
+  );
+
+  config.plugins.push(
+    new webpack.DefinePlugin({
+      WEBPACK_MODE: `"${process.env.NODE_ENV}"`,
+    })
   );
 
   return config;
