@@ -29,15 +29,14 @@ if (process.env.SKIP_PREFLIGHT_CHECK !== 'true') {
 }
 // @remove-on-eject-end
 
-const path = require('path');
 const chalk = require('chalk');
 const fs = require('fs-extra');
 const webpack = require('webpack');
-const config = require('../config/webpack.config.prod');
+const config = require('../config/webpack.config.client.prod');
+const serverConfig = require('../config/webpack.config.server.prod');
 const paths = require('../config/paths');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
-const printHostingInstructions = require('react-dev-utils/printHostingInstructions');
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
 const printBuildError = require('react-dev-utils/printBuildError');
 const { printBrowsers } = require('react-dev-utils/browsersHelper');
@@ -51,88 +50,101 @@ const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024;
 const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024;
 
 // Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
+if (!checkRequiredFiles([paths.appIndexJs])) {
   process.exit(1);
 }
+
+let isServer = false;
 
 // We require that you explictly set browsers and do not fall back to
 // browserslist defaults.
 const { checkBrowsers } = require('react-dev-utils/browsersHelper');
-checkBrowsers(paths.appPath)
-  .then(() => {
-    // First, read the current file sizes in build directory.
-    // This lets us display how much they changed later.
-    return measureFileSizesBeforeBuild(paths.appBuild);
-  })
-  .then(previousFileSizes => {
-    // Remove all content but keep the directory so that
-    // if you're in it, you don't end up in Trash
-    fs.emptyDirSync(paths.appBuild);
-    // Merge with the public folder
-    copyPublicFolder();
-    // Start the webpack build
-    return build(previousFileSizes);
-  })
-  .then(
-    ({ stats, previousFileSizes, warnings }) => {
-      if (warnings.length) {
-        console.log(chalk.yellow('Compiled with warnings.\n'));
-        console.log(warnings.join('\n\n'));
-        console.log(
-          '\nSearch for the ' +
-            chalk.underline(chalk.yellow('keywords')) +
-            ' to learn more about each warning.'
-        );
-        console.log(
-          'To ignore, add ' +
-            chalk.cyan('// eslint-disable-next-line') +
-            ' to the line before.\n'
-        );
-      } else {
-        console.log(chalk.green('Compiled successfully.\n'));
+const compile = webpackConfig =>
+  checkBrowsers(paths.appPath)
+    .then(() => {
+      // First, read the current file sizes in build directory.
+      // This lets us display how much they changed later.
+      return measureFileSizesBeforeBuild(paths.appBuild);
+    })
+    .then(previousFileSizes => {
+      // Remove all content but keep the directory so that
+      // if you're in it, you don't end up in Trash
+      if (!isServer) {
+        fs.emptyDirSync(paths.appBuild);
       }
+      // Merge with the public folder
+      copyPublicFolder();
+      // Start the webpack build
+      return build(webpackConfig, previousFileSizes);
+    })
+    .then(
+      ({ stats, previousFileSizes, warnings }) => {
+        if (warnings.length) {
+          console.log(chalk.yellow('Compiled with warnings.\n'));
+          console.log(warnings.join('\n\n'));
+          console.log(
+            '\nSearch for the ' +
+              chalk.underline(chalk.yellow('keywords')) +
+              ' to learn more about each warning.'
+          );
+          console.log(
+            'To ignore, add ' +
+              chalk.cyan('// eslint-disable-next-line') +
+              ' to the line before.\n'
+          );
+        } else {
+          console.log(
+            chalk.green(
+              `Compiled ${isServer ? 'server' : 'client'} successfully.\n`
+            )
+          );
+        }
 
-      console.log('File sizes after gzip:\n');
-      printFileSizesAfterBuild(
-        stats,
-        previousFileSizes,
-        paths.appBuild,
-        WARN_AFTER_BUNDLE_GZIP_SIZE,
-        WARN_AFTER_CHUNK_GZIP_SIZE
-      );
-      console.log();
+        console.log('File sizes after gzip:\n');
+        printFileSizesAfterBuild(
+          stats,
+          previousFileSizes,
+          paths.appBuild,
+          WARN_AFTER_BUNDLE_GZIP_SIZE,
+          WARN_AFTER_CHUNK_GZIP_SIZE
+        );
+        console.log();
 
-      const appPackage = require(paths.appPackageJson);
-      const publicUrl = paths.publicUrl;
-      const publicPath = config.output.publicPath;
-      const buildFolder = path.relative(process.cwd(), paths.appBuild);
-      printHostingInstructions(
-        appPackage,
-        publicUrl,
-        publicPath,
-        buildFolder,
-        paths.useYarn
-      );
-      printBrowsers(paths.appPath);
-    },
-    err => {
-      console.log(chalk.red('Failed to compile.\n'));
-      printBuildError(err);
+        if (isServer) {
+          // TODO: Print hosting instructions
+          console.log();
+          console.log('Server can be started with:');
+          console.log();
+          console.log(chalk.yellow('  node build/server.js'));
+          console.log();
+        } else {
+          console.log();
+          printBrowsers(paths.appPath);
+        }
+        isServer = true;
+      },
+      err => {
+        console.log(chalk.red('Failed to compile.\n'));
+        printBuildError(err);
+        process.exit(1);
+      }
+    )
+    .catch(err => {
+      if (err && err.message) {
+        console.log(err.message);
+      }
       process.exit(1);
-    }
-  )
-  .catch(err => {
-    if (err && err.message) {
-      console.log(err.message);
-    }
-    process.exit(1);
-  });
+    });
 
 // Create the production build and print the deployment instructions.
-function build(previousFileSizes) {
-  console.log('Creating an optimized production build...');
+function build(webpackConfig, previousFileSizes) {
+  console.log(
+    `Creating an optimized production ${
+      isServer ? 'server' : 'client'
+    } build...`
+  );
 
-  let compiler = webpack(config);
+  let compiler = webpack(webpackConfig);
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
       if (err) {
@@ -176,3 +188,5 @@ function copyPublicFolder() {
     filter: file => file !== paths.appHtml,
   });
 }
+
+compile(config).then(() => compile(serverConfig));

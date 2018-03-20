@@ -1,9 +1,8 @@
 'use strict';
 
-process.env.BABEL_ENV = 'development';
-process.env.NODE_ENV = 'development';
+process.env.BABEL_ENV = 'production';
+process.env.NODE_ENV = 'production';
 
-const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const paths = require('./paths');
@@ -35,7 +34,6 @@ const cssModuleRule = oneOf.find(
 );
 if (cssModuleRule) {
   cssModuleRule.use.splice(1, 0, MiniCssExtractPlugin.loader);
-  console.log('has stuff...', cssModuleRule.use);
   const styleLoaderIndex = cssModuleRule.use.findIndex(
     loader => loader === require.resolve('style-loader')
   );
@@ -47,9 +45,6 @@ config.plugins.push(
   new MiniCssExtractPlugin({
     filename: 'static/js/[name].[chunkhash:8].css',
     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.css',
-  }),
-  new ManifestPlugin({
-    fileName: 'asset-manifest.json',
   })
 );
 

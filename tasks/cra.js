@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * Copyright (c) 2015-present, Facebook, Inc. 
- * 
- * This source code is licensed under the MIT license found in the 
- * LICENSE file in the root directory of this source tree. 
+ * Copyright (c) 2015-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 'use strict';
@@ -119,6 +119,17 @@ cp.execSync(
     stdio: 'inherit',
   }
 );
+
+console.log();
+console.log('Fixing some modules...');
+cp.execSync('mkdir my-app/module-fix');
+cp.execSync(
+  'sed \'s/"@ueno\\/react-scripts.*/"mime": "2.2.0",/g\' my-app/package.json > my-app/module-fix/package.json'
+);
+cp.execSync('npm --prefix ./my-app/module-fix install');
+cp.execSync('rsync -av my-app/module-fix/node_modules/* my-app/node_modules/.');
+cp.execSync('rm -rf my-app/module-fix');
+console.log('done fixing modules');
 
 // Cleanup
 handleExit();

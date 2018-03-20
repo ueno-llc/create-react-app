@@ -44,6 +44,9 @@ function applyConfig(config) {
         outputStyle: 'expanded',
       },
     });
+
+    // Add Classnames loader
+    cssModuleRule.use.splice(0, 0, require.resolve('classnames-loader'));
   }
 
   // Work with JS module loader
@@ -80,7 +83,11 @@ function applyConfig(config) {
   });
 
   // List of plugins to remove
-  const removePlugins = [HtmlWebpackPlugin, InterpolateHtmlPlugin];
+  const removePlugins = [
+    HtmlWebpackPlugin,
+    InterpolateHtmlPlugin,
+    webpack.DefinePlugin,
+  ];
 
   // Go ahead and replace plugins list
   config.plugins = config.plugins.filter(

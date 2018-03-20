@@ -198,9 +198,9 @@ module.exports = function(
   // Install dependencies
   console.log();
   process.stdout.write('Installing @ueno packages...');
-  const proc = spawn.sync(command, 'install', { stdio: 'inherit' });
+  const proc = spawn.sync(command, 'install --verbose', { stdio: 'inherit' });
   if (proc.status !== 0) {
-    console.error(`\`${command} ${args.join(' ')}\` failed`);
+    console.error(`\`${command} install\` failed`);
     return;
   } else {
     console.log(' done!');
