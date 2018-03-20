@@ -35,11 +35,11 @@ const webpack = require('webpack');
 const config = require('../config/webpack.config.client.prod');
 const serverConfig = require('../config/webpack.config.server.prod');
 const paths = require('../config/paths');
-const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
-const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
-const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
-const printBuildError = require('react-dev-utils/printBuildError');
-const { printBrowsers } = require('react-dev-utils/browsersHelper');
+const checkRequiredFiles = require('@ueno/react-dev-utils/checkRequiredFiles');
+const formatWebpackMessages = require('@ueno/react-dev-utils/formatWebpackMessages');
+const FileSizeReporter = require('@ueno/react-dev-utils/FileSizeReporter');
+const printBuildError = require('@ueno/react-dev-utils/printBuildError');
+const { printBrowsers } = require('@ueno/react-dev-utils/browsersHelper');
 
 const measureFileSizesBeforeBuild =
   FileSizeReporter.measureFileSizesBeforeBuild;
@@ -58,7 +58,7 @@ let isServer = false;
 
 // We require that you explictly set browsers and do not fall back to
 // browserslist defaults.
-const { checkBrowsers } = require('react-dev-utils/browsersHelper');
+const { checkBrowsers } = require('@ueno/react-dev-utils/browsersHelper');
 const compile = webpackConfig =>
   checkBrowsers(paths.appPath)
     .then(() => {

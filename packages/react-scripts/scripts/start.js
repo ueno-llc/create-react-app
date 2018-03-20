@@ -36,15 +36,15 @@ const webpack = require('webpack');
 const spawn = require('child_process').spawn;
 const detect = require('detect-port-alt');
 const WebpackDevServer = require('webpack-dev-server');
-const clearConsole = require('react-dev-utils/clearConsole');
-const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
+const clearConsole = require('@ueno/react-dev-utils/clearConsole');
+const checkRequiredFiles = require('@ueno/react-dev-utils/checkRequiredFiles');
 const {
   choosePort,
   createCompiler,
   prepareProxy,
   prepareUrls,
-} = require('react-dev-utils/WebpackDevServerUtils');
-const openBrowser = require('react-dev-utils/openBrowser');
+} = require('@ueno/react-dev-utils/WebpackDevServerUtils');
+const openBrowser = require('@ueno/react-dev-utils/openBrowser');
 const paths = require('../config/paths');
 const config = require('../config/webpack.config.client.dev');
 const createDevServerConfig = require('../config/webpackDevServer.config');
@@ -91,7 +91,7 @@ const onResponsive = (hostname, port, cb) =>
 
 // We require that you explictly set browsers and do not fall back to
 // browserslist defaults.
-const { checkBrowsers } = require('react-dev-utils/browsersHelper');
+const { checkBrowsers } = require('@ueno/react-dev-utils/browsersHelper');
 checkBrowsers(paths.appPath)
   .then(() => {
     // We attempt to use the default port but if it is busy, we offer the user to

@@ -18,8 +18,8 @@ const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
 const execSync = require('child_process').execSync;
-const spawn = require('react-dev-utils/crossSpawn');
-const { defaultBrowsers } = require('react-dev-utils/browsersHelper');
+const spawn = require('@ueno/react-dev-utils/crossSpawn');
+const { defaultBrowsers } = require('@ueno/react-dev-utils/browsersHelper');
 const os = require('os');
 
 function isInGitRepository() {
@@ -101,13 +101,28 @@ module.exports = function(
 
   // Setup the script rules
   appPackage.scripts = {
-    start: 'react-scripts start',
+    dev: 'react-scripts start',
+    start: 'node build/server.js',
     build: 'react-scripts build',
     test: 'react-scripts test --env=jsdom',
     eject: 'react-scripts eject',
+    'heroku-postbuild': 'react-scripts build',
   };
 
   appPackage.browserslist = defaultBrowsers;
+
+  // Set main to built server
+  appPackage.main = 'build/server.js';
+
+  // Set webpack defaults
+  appPackage['webpack-defaults'] = 'webpack-defaults';
+
+  appPackage.eslintConfig = {
+    extends: 'react-app',
+    rules: {
+      'jsx-a11y/href-no-hash': false,
+    },
+  };
 
   fs.writeFileSync(
     path.join(appPath, 'package.json'),
@@ -133,6 +148,16 @@ module.exports = function(
       `Could not locate supplied template: ${chalk.green(templatePath)}`
     );
     return;
+  }
+
+  try {
+    fs.moveSync(
+      path.join(appPath, 'editorconfig'),
+      path.join(appPath, '.editorconfig'),
+      []
+    );
+  } catch (err) {
+    console.log('Could not add .editorconfig', err);
   }
 
   // Rename gitignore after the fact to prevent npm from renaming it to .npmignore
@@ -198,7 +223,7 @@ module.exports = function(
   // Install dependencies
   console.log();
   process.stdout.write('Installing @ueno packages...');
-  const proc = spawn.sync(command, 'install --verbose', { stdio: 'inherit' });
+  const proc = spawn.sync(command, ['install'], { stdio: 'inherit' });
   if (proc.status !== 0) {
     console.error(`\`${command} install\` failed`);
     return;
@@ -252,7 +277,7 @@ module.exports = function(
   console.log('We suggest that you begin by typing:');
   console.log();
   console.log(chalk.cyan('  cd'), cdpath);
-  console.log(`  ${chalk.cyan(`${displayedCommand} start`)}`);
+  console.log(`  ${chalk.cyan(`${displayedCommand} dev`)}`);
   if (readmeExists) {
     console.log();
     console.log(

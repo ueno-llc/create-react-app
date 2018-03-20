@@ -35,7 +35,6 @@ const cssModuleRule = oneOf.find(
 );
 if (cssModuleRule) {
   cssModuleRule.use.splice(1, 0, MiniCssExtractPlugin.loader);
-  console.log('has stuff...', cssModuleRule.use);
   const styleLoaderIndex = cssModuleRule.use.findIndex(
     loader => loader === require.resolve('style-loader')
   );
