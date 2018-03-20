@@ -207,8 +207,6 @@ module.exports = {
                     require.resolve('babel-preset-stage-0'),
                   ],
                   plugins: [
-                    require.resolve('babel-plugin-transform-decorators-legacy'),
-                    require.resolve('babel-plugin-transform-class-properties'),
                     [
                       require.resolve('babel-plugin-named-asset-import'),
                       {
@@ -218,6 +216,13 @@ module.exports = {
                           },
                         },
                       },
+                    ],
+                    require.resolve('babel-plugin-transform-decorators-legacy'),
+                    [
+                      require.resolve(
+                        'babel-plugin-transform-class-properties'
+                      ),
+                      { loose: true },
                     ],
                   ],
                   // This is a feature of `babel-loader` for webpack (not Babel itself).
