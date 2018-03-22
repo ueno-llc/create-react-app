@@ -17,8 +17,7 @@ const {
 } = require('react-async-component');
 
 const appDirectory = fs.realpathSync(process.cwd());
-const isDev =
-  typeof WEBPACK_MODE !== 'undefined' && WEBPACK_MODE === 'development';
+const isDev = process.env.NODE_ENV === 'development';
 const { REMOTE_PORT: port, HOST: host = 'localhost' } = process.env;
 const buildDir = path.join(appDirectory, './build');
 

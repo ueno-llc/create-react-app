@@ -3,6 +3,7 @@
 process.env.BABEL_ENV = 'development';
 process.env.NODE_ENV = 'development';
 
+const nodeExternals = require('webpack-node-externals');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
@@ -63,5 +64,16 @@ config.target = 'node';
 
 // Set devtool
 config.devtool = 'cheap-module-source-map';
+
+// Set minimal stats
+config.stats = 'minimal';
+
+// Set watchOptions to allow client bundle to compile first
+config.watchOptions = {
+  aggregateTimeout: 2000,
+};
+
+// Set node externals
+config.externals = [nodeExternals()];
 
 module.exports = config;

@@ -3,6 +3,7 @@
 process.env.BABEL_ENV = 'production';
 process.env.NODE_ENV = 'production';
 
+const nodeExternals = require('webpack-node-externals');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const paths = require('./paths');
@@ -58,6 +59,9 @@ delete config.optimization;
 config.target = 'node';
 
 // Set devtool
-config.devtool = 'cheap-module-source-map';
+config.devtool = 'cheap-eval-module-source-map';
+
+// Set node externals
+config.externals = [nodeExternals()];
 
 module.exports = config;
