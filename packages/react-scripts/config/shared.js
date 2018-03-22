@@ -3,6 +3,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('@ueno/react-dev-utils/InterpolateHtmlPlugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 function applyConfig(config) {
   // Find oneOf array
@@ -87,6 +88,7 @@ function applyConfig(config) {
     HtmlWebpackPlugin,
     InterpolateHtmlPlugin,
     webpack.DefinePlugin,
+    SWPrecacheWebpackPlugin,
   ];
 
   // Go ahead and replace plugins list

@@ -29,11 +29,9 @@ if (process.env.SKIP_PREFLIGHT_CHECK !== 'true') {
 }
 // @remove-on-eject-end
 
-const path = require('path');
 const http = require('http');
 const chalk = require('chalk');
 const webpack = require('webpack');
-const spawn = require('child_process').spawn;
 const detect = require('detect-port-alt');
 const WebpackDevServer = require('webpack-dev-server');
 const clearConsole = require('@ueno/react-dev-utils/clearConsole');
@@ -47,6 +45,7 @@ const {
 const openBrowser = require('@ueno/react-dev-utils/openBrowser');
 const paths = require('../config/paths');
 const config = require('../config/webpack.config.client.dev');
+const configServer = require('../config/webpack.config.server.dev');
 const createDevServerConfig = require('../config/webpackDevServer.config');
 
 const isInteractive = process.stdout.isTTY;
@@ -55,11 +54,6 @@ const isInteractive = process.stdout.isTTY;
 if (!checkRequiredFiles([paths.appIndexJs])) {
   process.exit(1);
 }
-
-const devWebpackConfigPath = path.join(
-  paths.ownPath.replace(process.cwd(), '.'),
-  'config/webpack.config.server.dev.js'
-);
 
 // Tools like Cloud9 rely on this.
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
@@ -108,17 +102,24 @@ checkBrowsers(paths.appPath)
       // We have not found a port.
       return;
     }
-    // Start server
-    const serverEnv = Object.create(process.env);
-    serverEnv.PORT = portServer;
-    serverEnv.REMOTE_PORT = port;
-    const server = spawn(
-      './node_modules/.bin/node-hot',
-      ['--config', devWebpackConfigPath],
-      { stdio: 'inherit', env: serverEnv }
-    );
-    // Set local port
+
+    // Set ports to environment
+    process.env.PORT = portServer;
+    process.env.REMOTE_PORT = port;
     process.env.LOCAL_PORT = portServer;
+
+    // Create server compiler
+    const compilerServer = webpack(configServer);
+    // Start compiler
+    compilerServer.watch(null, (err, stats) => {
+      if (err) {
+        console.log('Webpack error', err);
+      } else if (stats) {
+        // console.log('Watching files');
+      }
+    });
+
+    // Set local port
     config.output.publicPath = `http://${HOST}:${port}/`;
 
     // Begin webpack devserver sequence
@@ -160,7 +161,6 @@ checkBrowsers(paths.appPath)
     ['SIGINT', 'SIGTERM'].forEach(function(sig) {
       process.on(sig, function() {
         devServer.close();
-        server.kill();
         process.exit();
       });
     });

@@ -114,9 +114,6 @@ module.exports = function(
   // Set main to built server
   appPackage.main = 'build/server.js';
 
-  // Set webpack defaults
-  appPackage['webpack-defaults'] = 'webpack-defaults';
-
   appPackage.eslintConfig = {
     extends: 'react-app',
     rules: {

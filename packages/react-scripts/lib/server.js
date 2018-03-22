@@ -1,4 +1,3 @@
-/* global WEBPACK_MODE */
 'use strict';
 
 const fs = require('fs');

@@ -23,6 +23,14 @@ app.use('/static', express.static(staticDir));
 // Serve public files
 app.use(express.static('public'));
 
+// ServiceWorker support
+app.get(
+  /(sw.js|asset-manifest.json|\/precache-manifest*)/,
+  (req, res, next) => {
+    res.sendFile(req.originalUrl, { root: buildDir }, err => err && next());
+  }
+);
+
 // Serve react app
 app.get('*', (req, res) => {
   const store = new Store();

@@ -5,12 +5,14 @@ process.env.NODE_ENV = 'development';
 
 const nodeExternals = require('webpack-node-externals');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const StartServerPlugin = require('start-server-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const paths = require('./paths');
-const { applyConfig } = require('./shared');
 
-const config = applyConfig(require('./webpack.config.dev'));
+const { applyConfig } = require('./shared');
+const cloneDeep = require('clone-deep');
+const config = applyConfig(cloneDeep(require('./webpack.config.dev')));
 const oneOf = config.module.rules.find(rule => rule.oneOf).oneOf;
 
 // Set output object
@@ -21,7 +23,10 @@ config.output = {
 };
 
 // Set entry array
-config.entry = [path.join(paths.appSrc, 'server', 'index.js')];
+config.entry = [
+  'webpack/hot/poll?3000',
+  path.join(paths.appSrc, 'server', 'index.js'),
+];
 
 // Remove eslint Pre rule
 const preIndex = config.module.rules.findIndex(rule => rule.enforce === 'pre');
@@ -44,6 +49,10 @@ if (cssModuleRule) {
   }
 }
 config.plugins.push(
+  new StartServerPlugin({
+    name: 'server.js',
+    nodeArgs: ['--inspect'],
+  }),
   new MiniCssExtractPlugin({
     filename: 'static/js/[name].[chunkhash:8].css',
     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.css',
@@ -68,12 +77,14 @@ config.devtool = 'cheap-module-source-map';
 // Set minimal stats
 config.stats = 'minimal';
 
-// Set watchOptions to allow client bundle to compile first
-config.watchOptions = {
-  aggregateTimeout: 2000,
-};
+// Set watch
+config.watch = true;
 
 // Set node externals
-config.externals = [nodeExternals()];
+config.externals = [
+  nodeExternals({
+    whitelist: ['webpack/hot/poll?3000'],
+  }),
+];
 
 module.exports = config;
