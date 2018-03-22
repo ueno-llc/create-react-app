@@ -1,5 +1,4 @@
 import { render } from '@ueno/react-scripts/lib/client';
-import { toJS } from 'mobx';
 import Store from './store';
 import App from './App';
 
