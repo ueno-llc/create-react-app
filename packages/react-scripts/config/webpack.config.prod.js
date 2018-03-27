@@ -367,12 +367,11 @@ module.exports = {
     // It is absolutely essential that NODE_ENV was set to production here.
     // Otherwise React will be compiled in the very slow development mode.
     new webpack.DefinePlugin(env.stringified),
-    // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: 'static/js/[name].[chunkhash:8].css',
-      chunkFilename: 'static/js/[name].[chunkhash:8].chunk.css',
+      filename: 'static/css/[name].[chunkhash:8].css',
+      chunkFilename: 'static/css/[name].[chunkhash:8].chunk.css',
     }),
     // Generate a manifest file which contains a mapping of all asset filenames
     // to their corresponding output file so that tools can pick it up without
@@ -425,5 +424,10 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty',
+  },
+  // Turn off performance hints in production because we utilize
+  // our own hints via the FileSizeReporter
+  performance: {
+    hints: false,
   },
 };

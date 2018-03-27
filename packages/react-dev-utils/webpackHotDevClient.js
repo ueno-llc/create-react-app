@@ -193,11 +193,25 @@ function handleAvailableHash(hash) {
 connection.onmessage = function(e) {
   var message = JSON.parse(e.data);
   switch (message.type) {
+    case 'invalid':
+      if (
+        !this.isHot &&
+        typeof window !== 'undefined' &&
+        window.webpackProfiler
+      ) {
+        console.time('build time');
+        this.isHot = true;
+      }
+      break;
     case 'hash':
       handleAvailableHash(message.data);
       break;
     case 'still-ok':
     case 'ok':
+      if (this.isHot) {
+        console.timeEnd('build time');
+        this.isHot = false;
+      }
       handleSuccess();
       break;
     case 'content-changed':

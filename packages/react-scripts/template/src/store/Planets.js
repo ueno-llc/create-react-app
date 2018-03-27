@@ -1,7 +1,8 @@
 import axios from 'axios';
+import config from '@ueno/config';
 
 export default class Planets {
-  apiUrl = 'https://swapi.co/api/planets';
+  apiUrl = config.get('PLANETS_API_URL');
 
   cache = new Map();
 
