@@ -1,6 +1,6 @@
 {
   "name": "@ueno/react-scripts",
-  "version": "0.3.15",
+  "version": "0.3.16",
   "description": "Configuration and scripts for Create React App.",
   "repository": "facebook/create-react-app",
   "license": "MIT",
