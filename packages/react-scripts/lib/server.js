@@ -5,6 +5,7 @@ const path = require('path');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const Helmet = require('react-helmet').default;
+const config = require('@ueno/config');
 const { StaticRouter } = require('react-router-dom');
 const { JobProvider, createJobContext } = require('react-jobs');
 const { Provider } = require('mobx-react');
@@ -95,6 +96,7 @@ const render = (App, store) => (req, res) => {
       asyncComponentsRehydrateState: JSON.stringify(
         asyncComponentsContext.getState()
       ),
+      uenoConfig: JSON.stringify(config.getBrowser()),
     });
 
     // Add helmet stuff

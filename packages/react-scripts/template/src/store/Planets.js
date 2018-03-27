@@ -2,7 +2,7 @@ import axios from 'axios';
 import config from '@ueno/config';
 
 export default class Planets {
-  apiUrl = config.get('PLANETS_API_URL');
+  apiUrl = config.PLANETS_API_URL;
 
   cache = new Map();
 

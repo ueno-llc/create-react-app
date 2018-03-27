@@ -1,0 +1,20 @@
+{
+    "name": "@ueno/config",
+    "version": "0.0.2",
+    "description": "Environment configuration toolkit",
+    "repository": "ueno-llc/create-react-app",
+    "private": false,
+    "license": "MIT",
+    "main": "lib/index.js",
+    "engines": {
+      "node": ">=6"
+    },
+    "bugs": {
+      "url": "https://github.com/ueno-llc/create-react-app/issues"
+    },
+    "files": [
+      "lib/index.js"
+    ],
+    "dependencies": {
+    }
+}
