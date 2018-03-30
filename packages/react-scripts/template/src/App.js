@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import AppLayout, { Content } from './components/app-layout';
+import Devtools from '@ueno/react-scripts/lib/devtools';
 import Navigation from './components/navigation';
 import Header from './components/header';
 import Home from './routes/home';
@@ -9,6 +10,7 @@ import About from './routes/about';
 import Planets from './routes/planets';
 import NotFound from './routes/not-found';
 import './App.scss';
+import './config';
 
 export default class App extends Component {
   render() {
@@ -36,6 +38,7 @@ export default class App extends Component {
             <Route component={NotFound} />
           </Switch>
         </Content>
+        <Devtools />
       </AppLayout>
     );
   }

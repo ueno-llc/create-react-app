@@ -1,0 +1,144 @@
+@import '~styles/config';
+
+$grid-column-count: 12 !default;
+$grid-baseline: 16px !default;
+$gutter: 30px !default;
+$container-gutter-mobile: $gutter;
+$container-gutter-tablet: 50px !default;
+$container-gutter-desktop: 70px !default;
+$min-mobile: 420px !default;
+$min-tablet: 720px !default;
+$min-desktop: 1080px !default;
+
+@mixin __ueno__devtools__container {
+  margin: 0 auto;
+
+  padding-left: $container-gutter-mobile;
+  padding-right: $container-gutter-mobile;
+
+  max-width: $page-width + $container-gutter-mobile * 1;
+
+  @media (min-width: $min-mobile) {
+    max-width: $page-width + $container-gutter-mobile * 2;
+  }
+
+  @media (min-width: $min-tablet) {
+    padding-left: $container-gutter-tablet;
+    padding-right: $container-gutter-tablet;
+    max-width: $page-width + $container-gutter-tablet * 2;
+  }
+
+  @media (min-width: $min-desktop) {
+    padding-left: $container-gutter-desktop;
+    padding-right: $container-gutter-desktop;
+    max-width: $page-width + $container-gutter-desktop * 2;
+  }
+}
+
+@mixin __ueno__devtools__row($direction: ltr, $align: stretch, $justify: flex-start, $grid-gutter: $gutter, $wrap: wrap) {
+  display: flex;
+  flex-wrap: $wrap;
+
+  align-items: $align;
+  justify-content: $justify;
+
+  margin-left: -($grid-gutter / 2);
+  margin-right: -($grid-gutter / 2);
+
+  @if $direction == ltr {
+    flex-direction: row;
+  }
+
+  @else {
+    flex-direction: row-reverse;
+  }
+}
+
+@mixin __ueno__devtools__column($width: 100%, $align: stretch, $grid-gutter: $gutter) {
+  flex: none;
+  align-self: $align;
+
+  padding-left: $grid-gutter / 2;
+  padding-right: $grid-gutter / 2;
+
+  width: $width;
+}
+
+.__ueno__devtools {
+
+  z-index: 9001;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  overflow: hidden;
+  pointer-events: none;
+
+  transform-origin: 50% 0%;
+
+  &__container {
+    @if mixin-exists(container) {
+      @include container;
+    } @else {
+      @include __ueno__devtools__container;
+    }
+
+    height: 100%;
+  }
+
+  &__grid {
+    @if mixin-exists(grid-row) {
+      @include grid-row;
+    } @else {
+      @include __ueno__devtools__row;
+    }
+
+    height: 100%;
+    opacity: 0;
+    transition: opacity 330ms ease-in-out;
+
+    &Visible {
+      opacity: 1;
+    }
+
+    &__column {
+      @if mixin-exists(grid-col) {
+        @include grid-col(1 / $grid-column-count * 100%);
+      } @else {
+        @include __ueno__devtools__column(1 / $grid-column-count * 100%);
+      }
+
+      position: relative;
+      height: 100%;
+    }
+
+    &__visualize {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      &::before,
+      &::after {
+        content: '';
+        display: block;
+
+        width: 100%;
+        height: 100%;
+
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      &::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
+
+  }
+}

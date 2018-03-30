@@ -4,13 +4,9 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const BrowserRouter = require('react-router-dom/BrowserRouter').default;
 const asyncBootstrapper = require('react-async-bootstrapper').default;
-const config = require('@ueno/config');
 const { JobProvider } = require('react-jobs');
 const { Provider } = require('mobx-react');
 const { AsyncComponentProvider } = require('react-async-component');
-
-// Rehydrate config
-config.rehydrate(window.__uenoConfig);
 
 const render = (App, store, container) => {
   // Does the user's browser support the HTML5 history API?

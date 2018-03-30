@@ -102,6 +102,9 @@ function applyConfig(config) {
     })
   );
 
+  // Always have `src` resolved
+  config.resolve.modules.push('src');
+
   return config;
 }
 

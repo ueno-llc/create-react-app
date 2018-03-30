@@ -1,6 +1,6 @@
 {
     "name": "@ueno/config",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Environment configuration toolkit",
     "repository": "ueno-llc/create-react-app",
     "private": false,

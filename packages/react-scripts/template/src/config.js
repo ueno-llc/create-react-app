@@ -8,11 +8,6 @@ config.setDefaults({
 
 // What to expose to the browser
 config.setBrowser({
-  // Use .env -> env -> default -> undefined
   PLANETS_API_URL: true,
-
-  // Overwrite the value (only for browser)
-  SECRET_TOKEN(value) {
-    return '321';
-  },
+  SECRET_TOKEN: value => value.split``.reverse().join``,
 });
