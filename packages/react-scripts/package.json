@@ -1,6 +1,6 @@
 {
   "name": "@ueno/react-scripts",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Configuration and scripts for Create React App.",
   "repository": "facebook/create-react-app",
   "license": "MIT",
@@ -68,6 +68,7 @@
     "react-async-component": "1.0.2",
     "react-dev-utils": "^5.0.0",
     "react-helmet": "5.2.0",
+    "react-hot-loader": "4.0.0",
     "react-router": "4.2.0",
     "react-router-dom": "4.2.2",
     "react-tree-walker": "2.2.0",

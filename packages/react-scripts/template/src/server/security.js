@@ -47,6 +47,8 @@ if (WEBPACK_MODE === 'development') {
       cspConfig.directives[directive].push(`0.0.0.0:${REMOTE_PORT}`);
     }
   });
+  // Allow unsafe-eval for react-hot-loader
+  cspConfig.directives.scriptSrc.push("'unsafe-eval'");
 } else {
   // Note: We will execution of any inline scripts that have the following
   // nonce identifier attached to them.

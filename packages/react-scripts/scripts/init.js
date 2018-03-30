@@ -98,6 +98,7 @@ module.exports = function(
   appPackage.dependencies['mobx-react'] = '5.0.0';
   appPackage.dependencies['mobx'] = '4.1.0';
   appPackage.dependencies['axios'] = '0.18.0';
+  appPackage.dependencies['react-hot-loader'] = '4.0.0';
 
   // Setup the script rules
   appPackage.scripts = {

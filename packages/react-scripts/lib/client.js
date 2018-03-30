@@ -45,7 +45,7 @@ const render = (App, store, container) => {
     )
   );
 
-  asyncBootstrapper(app).then(() => {
+  asyncBootstrapper(app, { componentWillUnmount: true }).then(() => {
     // Render the app to #root
     ReactDOM.hydrate(app, container);
   });

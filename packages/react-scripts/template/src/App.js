@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
+import { hot } from 'react-hot-loader';
 import Helmet from 'react-helmet';
 import AppLayout, { Content } from './components/app-layout';
 import Devtools from '@ueno/react-scripts/lib/devtools';
@@ -12,6 +13,7 @@ import NotFound from './routes/not-found';
 import './App.scss';
 import './config';
 
+@hot(module)
 export default class App extends Component {
   render() {
     return (
