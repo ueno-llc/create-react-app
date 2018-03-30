@@ -4,10 +4,12 @@ import { inject } from 'mobx-react';
 import { withJob } from 'react-jobs';
 import { Link } from 'react-router-dom';
 
+@inject('planets')
 @withJob({
   work: ({ planets }) => planets.fetchAll(),
 })
-class RelatedPlanets extends PureComponent {
+export default class RelatedPlanets extends PureComponent {
+
   static propTypes = {
     jobResult: PropTypes.shape({
       results: PropTypes.array,
@@ -46,5 +48,3 @@ class RelatedPlanets extends PureComponent {
     );
   }
 }
-
-export default inject('planets')(RelatedPlanets);

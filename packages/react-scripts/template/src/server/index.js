@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import express from 'express';
 import app from './server';
 
 // Get listening port

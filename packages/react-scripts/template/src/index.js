@@ -16,9 +16,3 @@ render(App, store, container);
 //     navigator.serviceWorker.register('/sw.js');
 //   });
 // }
-
-if (module.hot) {
-  module.hot.accept('./App', () => {
-    render(require('./App').default, store, container);
-  });
-}

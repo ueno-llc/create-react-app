@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
+import Devtools from '@ueno/react-scripts/lib/devtools';
 import { hot } from 'react-hot-loader';
 import Helmet from 'react-helmet';
-import AppLayout, { Content } from './components/app-layout';
-import Devtools from '@ueno/react-scripts/lib/devtools';
-import Navigation from './components/navigation';
-import Header from './components/header';
-import Home from './routes/home';
-import About from './routes/about';
-import Planets from './routes/planets';
-import NotFound from './routes/not-found';
+import AppLayout, { Content } from 'components/app-layout';
+import Navigation from 'components/navigation';
+import Header from 'components/header';
+import Home from 'routes/home';
+import About from 'routes/about';
+import Planets from 'routes/planets';
+import NotFound from 'routes/not-found';
 import './App.scss';
-import './config';
+import 'config';
 
 @hot(module)
 export default class App extends Component {

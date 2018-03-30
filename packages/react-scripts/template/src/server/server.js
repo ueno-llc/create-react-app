@@ -1,5 +1,5 @@
 import express from 'express';
-import { render, staticDir } from '@ueno/react-scripts/lib/server';
+import { render, staticDir, buildDir } from '@ueno/react-scripts/lib/server';
 import compression from 'compression';
 import security from './security';
 import Store from '../store';

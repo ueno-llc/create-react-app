@@ -8,6 +8,7 @@ import s from './Button.scss';
  * feel free to modify to fit the project.
  */
 export default class Button extends PureComponent {
+
   static propTypes = {
     to: PropTypes.string,
     disabled: PropTypes.bool,

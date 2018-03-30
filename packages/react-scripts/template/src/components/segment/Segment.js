@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Container from '../container';
+import Container from 'components/container';
 import s from './Segment.scss';
 
 /**
  * Segment component
  */
 export default class Segment extends PureComponent {
+
   static propTypes = {
     container: PropTypes.bool,
     children: PropTypes.node,

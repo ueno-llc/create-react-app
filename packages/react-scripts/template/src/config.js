@@ -11,3 +11,5 @@ config.setBrowser({
   PLANETS_API_URL: true,
   SECRET_TOKEN: value => value.split``.reverse().join``,
 });
+
+export default config;

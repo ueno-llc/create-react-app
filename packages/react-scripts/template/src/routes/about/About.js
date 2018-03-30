@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Helmet from 'react-helmet';
-import Segment from '../../components/segment';
+import Segment from 'components/segment';
 
 export default class About extends PureComponent {
   render() {

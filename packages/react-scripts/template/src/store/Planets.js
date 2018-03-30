@@ -1,5 +1,5 @@
 import axios from 'axios';
-import config from '@ueno/config';
+import config from 'config';
 
 export default class Planets {
   apiUrl = config.PLANETS_API_URL;

@@ -5,9 +5,8 @@ import { computed } from 'mobx';
 import { withJob } from 'react-jobs';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
-
-import Segment from '../../../components/segment';
-import Button from '../../../components/button';
+import Segment from 'components/segment';
+import Button from 'components/button';
 
 const LoadingComponent = () => (
   <Segment>
@@ -24,6 +23,7 @@ const LoadingComponent = () => (
   LoadingComponent,
 })
 export default class Planets extends PureComponent {
+
   static propTypes = {
     jobResult: PropTypes.shape({
       results: PropTypes.array,

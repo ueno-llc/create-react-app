@@ -4,7 +4,7 @@ import { inject } from 'mobx-react';
 import { withJob } from 'react-jobs';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
-import Segment from '../../../components/segment';
+import Segment from 'components/segment';
 import RelatedPlanets from './components/related-planets';
 
 @inject('planets')
@@ -14,6 +14,7 @@ import RelatedPlanets from './components/related-planets';
     prev.match.params.id !== next.match.params.id,
 })
 export default class PlanetsDetail extends PureComponent {
+
   static propTypes = {
     jobResult: PropTypes.shape({
       results: PropTypes.array,
