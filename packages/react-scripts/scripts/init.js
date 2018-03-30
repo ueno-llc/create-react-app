@@ -106,6 +106,7 @@ module.exports = function(
     start: 'node build/server.js',
     build: 'react-scripts build',
     test: 'react-scripts test --env=jsdom',
+    static: './node_modules/@ueno/react-scripts/bin/static.sh',
     eject: 'react-scripts eject',
     'heroku-postbuild': 'react-scripts build',
   };
@@ -156,6 +157,16 @@ module.exports = function(
     );
   } catch (err) {
     console.log('Could not add .editorconfig', err);
+  }
+
+  try {
+    fs.moveSync(
+      path.join(appPath, 'stylelintrc'),
+      path.join(appPath, '.stylelintrc'),
+      []
+    );
+  } catch (err) {
+    console.log('Could not add .stylelintrc', err);
   }
 
   // Rename gitignore after the fact to prevent npm from renaming it to .npmignore
