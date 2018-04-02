@@ -1,3 +1,44 @@
+# Create React App - Ueno edition.
+
+Opinionated create-react-app with custom webpack config and dependencies outside of Facebook's scope.
+
+## Get started
+```
+create-react-app --scripts-version @ueno/react-scripts my-app
+cd my-app
+yarn dev
+```
+
+## Features
+
+ - Webpack 4.2.0
+ - HMR 4.0.0
+ - ueno's starter kit in ./src
+ - @ueno/config (client .env)
+ - @ueno/DevTools (Grid helper)
+ - react-helmet, react-router, react-jobs, mobx, mobx-react, axios
+ - Code Splitting with react-tree-walker and react-async-component
+ - SCSS, CSS modules and classnames
+ - SVG to JSX loader (name them `.jsx.svg`)
+ - Babel: stage0 and legacy decorators
+ - .editorconfig
+ - Heroku support
+ - NodeJS: Hot reload server without restart
+ - NodeJS: Chrome devtools support
+ - NodeJS: Prebuilt CSS in dev mode (no white flash)
+ - NodeJS: express, compression, helmet and hpp
+ - NodeJS: React renderToStream
+ - Production: Workbox (Service Worker)
+
+## Information
+
+### Show bundle build time in Chrome console for debugging.
+```js
+window.webpackProfiler = true;
+```
+
+---
+
 # Create React App [![Build Status](https://travis-ci.org/facebook/create-react-app.svg?branch=master)](https://travis-ci.org/facebook/create-react-app)
 
 Create React apps with no build configuration.
