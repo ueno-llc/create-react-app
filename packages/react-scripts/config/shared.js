@@ -68,9 +68,9 @@ function applyConfig(config) {
     );
   }
 
-  // Add SVG Loader
+  // Add SVGX Loader
   oneOf.splice(0, 0, {
-    test: /\.jsx.svg$/,
+    test: /\.svgx$/,
     use: [
       {
         loader: require.resolve('babel-loader'),

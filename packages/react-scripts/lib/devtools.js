@@ -18,7 +18,10 @@ class DevTools extends React.PureComponent {
     document.addEventListener('keydown', this.onKeyDown);
 
     try {
-      this.state = JSON.parse(localStorage.getItem(prefix));
+      const tmpState = JSON.parse(localStorage.getItem(prefix));
+      if (tmpState) {
+        this.state.grid = tmpState.grid;
+      }
       this.setState(this.state);
     } catch (err) {
       // Failed to read from localStorage
@@ -82,4 +85,4 @@ class DevTools extends React.PureComponent {
   }
 }
 
-module.exports = DevTools;
+module.exports = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? DevTools : () => null;

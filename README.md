@@ -19,7 +19,7 @@ yarn dev
  - react-helmet, react-router, react-jobs, mobx, mobx-react, axios
  - Code Splitting with react-tree-walker and react-async-component
  - SCSS, CSS modules and classnames
- - SVG to JSX loader (name them `.jsx.svg`)
+ - SVG to JSX loader (name them `.svgx`)
  - Babel: stage0 and legacy decorators
  - .editorconfig
  - Heroku support
