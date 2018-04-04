@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import UenoLogo from './UenoLogo.jsx.svg';
+import UenoLogo from './UenoLogo.svgx';
 import s from './Header.scss';
 
 export default class Header extends Component {
