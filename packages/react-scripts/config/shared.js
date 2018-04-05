@@ -68,13 +68,11 @@ function applyConfig(config) {
     );
   }
 
-
   // Remove eslint loader
-  const preLoaderIndex = config.module.rules.find(rule => rule.enforce);
+  const preLoaderIndex = config.module.rules.findIndex(rule => rule.enforce === 'pre');
   if (preLoaderIndex >= 0) {
     config.module.rules.splice(preLoaderIndex, 1);
   }
-
 
   // Add SVGX Loader
   oneOf.splice(0, 0, {
