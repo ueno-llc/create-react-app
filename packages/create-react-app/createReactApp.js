@@ -90,6 +90,11 @@ const program = new commander.Command(packageJson.name)
       )}`
     );
     console.log(
+      `      - a local path relative to the current working directory: ${chalk.green(
+        'file:../my-react-scripts'
+      )}`
+    );
+    console.log(
       `      - a .tgz archive: ${chalk.green(
         'https://mysite.com/my-react-scripts-0.8.2.tgz'
       )}`
@@ -195,7 +200,9 @@ function createApp(name, verbose, version, useNpm, template) {
   if (!semver.satisfies(process.version, '>=6.0.0')) {
     console.log(
       chalk.yellow(
-        `You are using Node ${process.version} so the project will be bootstrapped with an old unsupported version of tools.\n\n` +
+        `You are using Node ${
+          process.version
+        } so the project will be bootstrapped with an old unsupported version of tools.\n\n` +
           `Please update to Node 6 or higher for a better, fully supported experience.\n`
       )
     );
@@ -209,7 +216,9 @@ function createApp(name, verbose, version, useNpm, template) {
       if (npmInfo.npmVersion) {
         console.log(
           chalk.yellow(
-            `You are using npm ${npmInfo.npmVersion} so the project will be boostrapped with an old unsupported version of tools.\n\n` +
+            `You are using npm ${
+              npmInfo.npmVersion
+            } so the project will be boostrapped with an old unsupported version of tools.\n\n` +
               `Please update to npm 3 or higher for a better, fully supported experience.\n`
           )
         );
