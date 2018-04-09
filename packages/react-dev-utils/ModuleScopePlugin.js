@@ -84,8 +84,7 @@ class ModuleScopePlugin {
         } else {
           callback();
         }
-      }
-    );
+    });
   }
 }
 
