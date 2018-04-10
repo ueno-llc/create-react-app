@@ -65,16 +65,19 @@ const render = (App, store) => (req, res) => {
     // Update manifest
     manifest = getManifest();
   } else {
-    Object.values(manifest)
-      .forEach(item => {
-        if (!!item.match(/\.js$/)) {
-          scripts.push(item);
-        }
-        if (!!item.match(/\.css$/)) {
-          styles.push(item);
-        }
-      });
+    Object.values(manifest).forEach(item => {
+      if (!!item.match(/\.js$/)) {
+        scripts.push(item);
+      }
+    });
   }
+
+  // Add CSS files
+  Object.values(manifest).forEach(item => {
+    if (!!item.match(/\.css$/)) {
+      styles.push(item);
+    }
+  });
 
   // Stream react to response
   const app = React.createElement(

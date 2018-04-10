@@ -189,4 +189,7 @@ function copyPublicFolder() {
   });
 }
 
-compile(config).then(() => compile(serverConfig));
+compile(config)
+  .then(() => compile(serverConfig))
+  .then(() => process.exit(0))
+  .catch(() => process.exit(1));
