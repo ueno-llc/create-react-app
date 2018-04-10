@@ -54,6 +54,7 @@ const render = (App, store) => (req, res) => {
   };
 
   const scripts = [];
+  const styles = [];
 
   if (isDev) {
     // Inject scripts from client development server
@@ -64,9 +65,15 @@ const render = (App, store) => (req, res) => {
     // Update manifest
     manifest = getManifest();
   } else {
-    scripts.push(manifest['runtime~main.js']);
-    scripts.push(manifest['vendors~main.js']);
-    scripts.push(manifest['main.js']);
+    Object.values(manifest)
+      .forEach(item => {
+        if (!!item.match(/\.js$/)) {
+          scripts.push(item);
+        }
+        if (!!item.match(/\.css$/)) {
+          styles.push(item);
+        }
+      });
   }
 
   // Stream react to response
@@ -137,11 +144,7 @@ const render = (App, store) => (req, res) => {
     ${helmet.link.toString()}
     ${helmet.style.toString()}
     ${ReactDOMServer.renderToStaticMarkup(headScripts)}
-    ${
-      manifest['main.css']
-        ? `<link href="${manifest['main.css']}" rel="stylesheet" />`
-        : ''
-    }
+    ${styles.map(uri => `<link href="${uri}" rel="stylesheet" />`).join``}
   </head>
   <body ${helmet.bodyAttributes.toString()}>
     ${helmet.noscript.toString()}

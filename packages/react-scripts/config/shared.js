@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('@ueno/react-dev-utils/InterpolateHtmlPlugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
-
 function processThreadLoader(loader) {
   const loaders = loader.use || [];
 
@@ -92,7 +91,9 @@ function applyConfig(config) {
   }
 
   // Remove eslint loader
-  const preLoaderIndex = config.module.rules.findIndex(rule => rule.enforce === 'pre');
+  const preLoaderIndex = config.module.rules.findIndex(
+    rule => rule.enforce === 'pre'
+  );
   if (preLoaderIndex >= 0) {
     config.module.rules.splice(preLoaderIndex, 1);
   }
