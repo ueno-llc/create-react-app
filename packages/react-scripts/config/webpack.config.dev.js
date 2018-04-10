@@ -96,6 +96,7 @@ module.exports = {
     // https://twitter.com/wSokra/status/969633336732905474
     splitChunks: {
       chunks: 'all',
+      name: false,
     },
     // Keep the runtime chunk seperated to enable long term caching
     // https://twitter.com/wSokra/status/969679223278505985

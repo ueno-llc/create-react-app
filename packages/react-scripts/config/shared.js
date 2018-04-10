@@ -5,6 +5,29 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('@ueno/react-dev-utils/InterpolateHtmlPlugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
+
+function processThreadLoader(loader) {
+  const loaders = loader.use || [];
+
+  const threadLoaderIndex = loaders.findIndex(item => {
+    const loader = (typeof item === 'object' && item.loader) || item;
+    if (loader === require.resolve('thread-loader')) {
+      return true;
+    }
+    return false;
+  });
+
+  if (threadLoaderIndex >= 0) {
+    loaders[threadLoaderIndex] = {
+      loader: require.resolve('thread-loader'),
+      options: {
+        poolTimeout: Infinity,
+        name: '@ueno/pool',
+      },
+    };
+  }
+}
+
 function applyConfig(config) {
   // Find oneOf array
   const oneOf = config.module.rules.find(rule => rule.oneOf).oneOf;
@@ -110,6 +133,9 @@ function applyConfig(config) {
 
   // Always have `src` resolved
   config.resolve.modules.push('src');
+
+  // Modify thread-loader
+  oneOf.forEach(processThreadLoader);
 
   return config;
 }
