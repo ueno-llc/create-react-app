@@ -10,8 +10,8 @@ import Home from 'routes/home';
 import About from 'routes/about';
 import Planets from 'routes/planets';
 import NotFound from 'routes/not-found';
+import config from 'config';
 import './App.scss';
-import 'config';
 
 @hot(module)
 export default class App extends Component {
@@ -20,10 +20,9 @@ export default class App extends Component {
       <AppLayout>
         <Helmet htmlAttributes={{ lang: 'en ' }} titleTemplate="Ueno. - %s">
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, user-scalable=no"
-          />
+          <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+          <meta name="theme-color" content={config.themeColor} />
+          <link rel="manifest" href="/manifest.json" />
         </Helmet>
         <Header>
           <Navigation>

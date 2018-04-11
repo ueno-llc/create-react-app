@@ -28,12 +28,15 @@ const cspConfig = {
       // recognise that we have also provided a nonce configuration and
       // use the stricter rule.
       "'unsafe-inline'",
+      // Workbox library comes from storage.googleapis.com
+      'storage.googleapis.com',
     ],
     styleSrc: [
       "'self'",
       // Webpack generates JS that loads our CSS, so this is needed:
       "'unsafe-inline'",
       'blob:',
+      // We will ship Google Fonts by default.
       'fonts.googleapis.com',
     ],
   },

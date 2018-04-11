@@ -1,9 +1,12 @@
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('@ueno/react-dev-utils/InterpolateHtmlPlugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const paths = require('./paths');
 
 function processThreadLoader(loader) {
   const loaders = loader.use || [];
@@ -70,6 +73,33 @@ function applyConfig(config) {
 
     // Add Classnames loader
     cssModuleRule.use.splice(0, 0, require.resolve('classnames-loader'));
+
+    const postCSSLoader = cssModuleRule.use.find(
+      rule => rule.loader && rule.loader === require.resolve('postcss-loader')
+    );
+    if (postCSSLoader) {
+      const postcssConfigPath = path.resolve(paths.appSrc, '..', 'postcss.config.js');
+      if (fs.existsSync(postcssConfigPath)) {
+        postCSSLoader.options = {
+          ident: 'postcss',
+          config: {
+            path: postcssConfigPath,
+          },
+        };
+      } else {
+        postCSSLoader.options = {
+          // Necessary for external CSS imports to work
+          // https://github.com/facebook/create-react-app/issues/2677
+          ident: 'postcss',
+          plugins: [
+            require('postcss-flexbugs-fixes'),
+            require('autoprefixer')({
+              flexbox: 'no-2009',
+            }),
+          ],
+        };
+      }
+    }
   }
 
   // Work with JS module loader

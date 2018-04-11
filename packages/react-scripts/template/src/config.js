@@ -1,5 +1,9 @@
 import config from '@ueno/config';
 
+// You can set some global accessable properties here.
+// We recommend not to use UPPER_CASE env style for those.
+config.themeColor = '#00E2AD';
+
 // Set default config
 config.setDefaults({
   SECRET_TOKEN: '123',
