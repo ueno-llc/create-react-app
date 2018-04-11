@@ -86,6 +86,6 @@ class DevTools extends React.PureComponent {
 }
 
 module.exports =
-  !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
+  (process.env && process.env.NODE_ENV === 'development')
     ? DevTools
     : () => null;

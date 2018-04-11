@@ -17,7 +17,7 @@ export default class Header extends Component {
       <header className={s.header}>
         <div className={s.header__container}>
           <div className={s.header__content}>
-            <Link to="/" className={s.header__logo}>
+            <Link to="/" aria-label="Logo" className={s.header__logo}>
               <UenoLogo className={s.header__logoSvg} />
             </Link>
 
