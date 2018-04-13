@@ -5,6 +5,7 @@ import { computed } from 'mobx';
 import { withJob } from 'react-jobs';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
+
 import Segment from 'components/segment';
 import Button from 'components/button';
 
@@ -39,15 +40,10 @@ export default class Planets extends PureComponent {
         page: PropTypes.string,
       }),
     }),
-  };
+  }
 
-  /**
-   * Fired when pagination buttons are clicked.
-   * @param {Event} Click-event.
-   * @return {void}
-   */
   onClickPage = e => {
-    // Prevent default click behaviour
+    // Prevent default click behavior
     e.preventDefault();
 
     // Extract wanted url from node's dataset.
@@ -85,10 +81,6 @@ export default class Planets extends PureComponent {
     return Math.min(this.page * 10, this.props.jobResult.count);
   }
 
-  /**
-   * Render method
-   * @return {React.Component}
-   */
   render() {
     const { results, count, previous, next } = this.props.jobResult;
 

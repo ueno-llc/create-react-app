@@ -4,7 +4,9 @@ import { inject } from 'mobx-react';
 import { withJob } from 'react-jobs';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
+
 import Segment from 'components/segment';
+
 import RelatedPlanets from './components/related-planets';
 
 @inject('planets')
@@ -22,12 +24,8 @@ export default class PlanetsDetail extends PureComponent {
       previous: PropTypes.string,
       next: PropTypes.string,
     }),
-  };
+  }
 
-  /**
-   * Render method
-   * @return {Component}
-   */
   render() {
     const { jobResult: planet } = this.props;
     const { name, gravity, terrain, climate, population, diameter } = planet;
