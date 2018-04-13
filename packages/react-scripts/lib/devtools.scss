@@ -65,14 +65,12 @@ $min-desktop: 1080px !default;
 }
 
 .__ueno__devtools {
-
-  z-index: 9001;
-
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 9001;
 
   overflow: hidden;
   pointer-events: none;
@@ -80,43 +78,53 @@ $min-desktop: 1080px !default;
   transform-origin: 50% 0%;
 
   &__container {
+    height: 100%;
+
     @if mixin-exists(container) {
       @include container;
-    } @else {
-      @include __ueno__devtools__container;
     }
 
-    height: 100%;
+    @else {
+      @include __ueno__devtools__container;
+    }
   }
 
   &__grid {
-    @if mixin-exists(grid-row) {
-      @include grid-row;
-    } @else {
-      @include __ueno__devtools__row;
-    }
+    opacity: 0;
 
     height: 100%;
-    opacity: 0;
+
     transition: opacity 330ms ease-in-out;
+
+    @if mixin-exists(grid-row) {
+      @include grid-row;
+    }
+
+    @else {
+      @include __ueno__devtools__row;
+    }
 
     &Visible {
       opacity: 1;
     }
 
     &__column {
+      position: relative;
+
+      height: 100%;
+
       @if mixin-exists(grid-col) {
         @include grid-col(1 / $grid-column-count * 100%);
-      } @else {
-        @include __ueno__devtools__column(1 / $grid-column-count * 100%);
       }
 
-      position: relative;
-      height: 100%;
+      @else {
+        @include __ueno__devtools__column(1 / $grid-column-count * 100%);
+      }
     }
 
     &__visualize {
       position: relative;
+
       width: 100%;
       height: 100%;
 

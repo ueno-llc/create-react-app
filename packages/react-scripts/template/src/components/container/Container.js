@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+
 import s from './Container.scss';
 
 export default class Container extends PureComponent {

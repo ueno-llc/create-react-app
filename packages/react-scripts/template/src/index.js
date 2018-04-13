@@ -1,4 +1,5 @@
 import { render } from '@ueno/react-scripts/lib/client';
+
 import Store from './store';
 import App from './App';
 

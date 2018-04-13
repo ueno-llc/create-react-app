@@ -9,7 +9,7 @@ export default class PlanetsRoutes extends PureComponent {
 
   static propTypes = {
     match: PropTypes.object,
-  };
+  }
 
   render() {
     const { match } = this.props;

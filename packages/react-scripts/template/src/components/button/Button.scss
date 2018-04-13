@@ -1,9 +1,9 @@
 @import '~styles/config';
 
-$btn-height: 40px;
-$btn-border-width: 2px;
-
 .button {
+  $btn-height: 40px;
+  $btn-border-width: 2px;
+
   @include reset-button;
 
   display: inline-flex;

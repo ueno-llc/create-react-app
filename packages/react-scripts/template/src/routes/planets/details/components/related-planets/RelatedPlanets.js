@@ -18,7 +18,7 @@ export default class RelatedPlanets extends PureComponent {
       next: PropTypes.string,
     }),
     planet: PropTypes.object,
-  };
+  }
 
   render() {
     const { jobResult, planet } = this.props;

@@ -10,6 +10,7 @@ export default class Planets {
     if (this.cache.has(url)) {
       return Promise.resolve(this.cache.get(url));
     }
+
     return axios.get(url).then(res => {
       const { data } = res;
       this.cache.set(url, data);
