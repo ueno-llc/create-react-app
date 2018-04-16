@@ -141,7 +141,7 @@
   @include responsive-font($min, $max);
 
   $arbitrary-subheading-margin: 26;
-  $arbitrary-subheading-line-height: 58;
+  $arbitrary-subheading-line-height: 38;
 
   margin-bottom: (strip-unit($arbitrary-subheading-margin) / strip-unit($max)) * 1em;
 

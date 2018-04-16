@@ -1,0 +1,32 @@
+@import '~styles/config';
+
+.intro {
+  position: relative;
+
+  &__heading {
+    @include will-animate;
+    @include heading(32, 38);
+
+    margin-bottom: $gutter;
+
+    transform: translateX(-$gutter);
+  }
+
+  &__subheading {
+    @include will-animate;
+    @include subheading(22, 26);
+
+    margin-bottom: $gutter;
+
+    transform: translateX(-$gutter);
+  }
+
+  &__copy {
+    @include will-animate;
+    @include copy(16, 18);
+
+    max-width: 30em;
+
+    transform: translateX(-$gutter);
+  }
+}

@@ -12,6 +12,10 @@ export default class Home extends PureComponent {
         <Helmet title="Home" />
 
         <Segment>
+          <h1>Welcome to Sample CRA</h1>
+        </Segment>
+
+        <Segment>
           <Button>Button</Button>
           <Button to="http://ueno.co">Ueno.co</Button>
           <Button to="/about">About</Button>
