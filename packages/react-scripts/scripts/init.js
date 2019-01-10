@@ -21,7 +21,7 @@ const execSync = require('child_process').execSync;
 const spawn = require('react-dev-utils/crossSpawn');
 const { defaultBrowsers } = require('react-dev-utils/browsersHelper');
 const os = require('os');
-const verifyTypeScriptSetup = require('./utils/verifyTypeScriptSetup');
+// const verifyTypeScriptSetup = require('./utils/verifyTypeScriptSetup');
 
 function isInGitRepository() {
   try {
@@ -90,20 +90,30 @@ module.exports = function(
 
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
+  appPackage.dependencies['react-helmet'] = '^5.2.0';
+  appPackage.dependencies['react-router-dom'] = '^4.3.1';
+
+  appPackage.devDependencies = appPackage.devDependencies || {};
+  appPackage.devDependencies['@types/node'] = '^10.12.18';
+  appPackage.devDependencies['@types/react-dom'] = '^16.0.11';
+  appPackage.devDependencies['@types/react-helmet'] = '^5.0.8';
+  appPackage.devDependencies['@types/react-router-dom'] = '^4.3.1';
+  appPackage.devDependencies['@ueno/stylelint-config'] = '^1.0.5';
+  appPackage.devDependencies['node-sass'] = '^4.11.0';
+  appPackage.devDependencies['stylelint'] = '^9.9.0';
+  appPackage.devDependencies['tslint'] = '^5.12.0';
+  appPackage.devDependencies['tslint-react'] = '^3.6.0';
+  appPackage.devDependencies['typescript'] = '^3.2.2';
 
   const useTypeScript = appPackage.dependencies['typescript'] != null;
 
   // Setup the script rules
   appPackage.scripts = {
+    dev: 'react-scripts start',
     start: 'react-scripts start',
     build: 'react-scripts build',
     test: 'react-scripts test',
     eject: 'react-scripts eject',
-  };
-
-  // Setup the eslint config
-  appPackage.eslintConfig = {
-    extends: 'react-app',
   };
 
   // Setup the browsers list
@@ -154,6 +164,23 @@ module.exports = function(
     }
   }
 
+  const dotFiles = ['editorconfig', 'stylelintrc'];
+  dotFiles.forEach(dotFile => {
+    try {
+      fs.moveSync(
+        path.join(appPath, dotFile),
+        path.join(appPath, '.' + dotFile),
+        []
+      );
+    } catch (err) {
+      if (err.code === 'EEXIST') {
+        const data = fs.readFileSync(path.join(appPath, dotFile));
+        fs.appendFileSync(path.join(appPath, '.' + dotFile), data);
+        fs.unlinkSync(path.join(appPath, dotFile));
+      }
+    }
+  });
+
   let command;
   let args;
 
@@ -195,9 +222,20 @@ module.exports = function(
     }
   }
 
-  if (useTypeScript) {
-    verifyTypeScriptSetup();
+  // Install dependencies
+  console.log();
+  process.stdout.write('Installing @ueno packages...');
+  const proc = spawn.sync(command, ['install'], { stdio: 'inherit' });
+  if (proc.status !== 0) {
+    console.error(`\`${command} install\` failed`);
+    return;
+  } else {
+    console.log(' done!');
   }
+
+  // if (useTypeScript) {
+  //   verifyTypeScriptSetup();
+  // }
 
   if (tryGitInit(appPath)) {
     console.log();
