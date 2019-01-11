@@ -92,6 +92,7 @@ module.exports = function(
   appPackage.dependencies = appPackage.dependencies || {};
   appPackage.dependencies['react-helmet'] = '^5.2.0';
   appPackage.dependencies['react-router-dom'] = '^4.3.1';
+  appPackage.dependencies['gsap'] = '^2.0.2';
 
   appPackage.devDependencies = appPackage.devDependencies || {};
   appPackage.devDependencies['@types/node'] = '^10.12.18';
@@ -99,6 +100,7 @@ module.exports = function(
   appPackage.devDependencies['@types/react-helmet'] = '^5.0.8';
   appPackage.devDependencies['@types/react-router-dom'] = '^4.3.1';
   appPackage.devDependencies['@ueno/stylelint-config'] = '^1.0.5';
+  appPackage.devDependencies['gsap-devtools'] = '^1.0.3';
   appPackage.devDependencies['node-sass'] = '^4.11.0';
   appPackage.devDependencies['stylelint'] = '^9.9.0';
   appPackage.devDependencies['tslint'] = '^5.12.0';
