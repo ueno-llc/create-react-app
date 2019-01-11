@@ -1,0 +1,3 @@
+[submodule "packages/react-scripts/template/src"]
+	path = packages/react-scripts/template/src
+	url = git@github.com:ueno-llc/template-www.git
