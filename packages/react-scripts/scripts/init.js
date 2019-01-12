@@ -90,6 +90,8 @@ module.exports = function(
 
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
+  appPackage.dependencies['react'] = '^16.8.0-alpha.0';
+  appPackage.dependencies['react-dom'] = '^16.8.0-alpha.0';
   appPackage.dependencies['react-helmet'] = '^5.2.0';
   appPackage.dependencies['react-router-dom'] = '^4.3.1';
   appPackage.dependencies['gsap'] = '^2.0.2';
@@ -194,7 +196,7 @@ module.exports = function(
     command = 'npm';
     args = ['install', '--save', verbose && '--verbose'].filter(e => e);
   }
-  args.push('react', 'react-dom');
+  args.push('react@' + appPackage.dependencies['react'], 'react-dom@' + appPackage.dependencies['react-dom']);
 
   // Install additional template dependencies, if present
   const templateDependenciesPath = path.join(
@@ -227,7 +229,8 @@ module.exports = function(
 
   // Install dependencies
   console.log();
-  process.stdout.write('Installing @ueno packages...');
+  console.log('Installing @ueno packages...');
+  console.log();
   const proc = spawn.sync(command, ['install'], { stdio: 'inherit' });
   if (proc.status !== 0) {
     console.error(`\`${command} install\` failed`);
