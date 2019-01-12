@@ -100,6 +100,7 @@ module.exports = function(
   appPackage.devDependencies['@types/react-helmet'] = '^5.0.8';
   appPackage.devDependencies['@types/react-router-dom'] = '^4.3.1';
   appPackage.devDependencies['@ueno/stylelint-config'] = '^1.0.5';
+  appPackage.devDependencies['@ueno/tslint-config'] = '^1.0.0';
   appPackage.devDependencies['gsap-tools'] = '^1.0.3';
   appPackage.devDependencies['node-sass'] = '^4.11.0';
   appPackage.devDependencies['stylelint'] = '^9.9.0';
@@ -107,7 +108,7 @@ module.exports = function(
   appPackage.devDependencies['tslint-react'] = '^3.6.0';
   appPackage.devDependencies['typescript'] = '^3.2.2';
 
-  const useTypeScript = appPackage.dependencies['typescript'] != null;
+  const useTypeScript = false;
 
   // Setup the script rules
   appPackage.scripts = {

@@ -27,8 +27,8 @@ const verifyPackageTree = require('./utils/verifyPackageTree');
 if (process.env.SKIP_PREFLIGHT_CHECK !== 'true') {
   verifyPackageTree();
 }
-const verifyTypeScriptSetup = require('./utils/verifyTypeScriptSetup');
-verifyTypeScriptSetup();
+// const verifyTypeScriptSetup = require('./utils/verifyTypeScriptSetup');
+// verifyTypeScriptSetup();
 // @remove-on-eject-end
 
 const path = require('path');
