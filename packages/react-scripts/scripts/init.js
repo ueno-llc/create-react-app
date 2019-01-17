@@ -101,8 +101,8 @@ module.exports = function(
   appPackage.devDependencies['@types/react-dom'] = '^16.0.11';
   appPackage.devDependencies['@types/react-helmet'] = '^5.0.8';
   appPackage.devDependencies['@types/react-router-dom'] = '^4.3.1';
-  appPackage.devDependencies['@ueno/stylelint-config'] = '^1.0.5';
-  appPackage.devDependencies['@ueno/tslint-config'] = '^1.0.0';
+  appPackage.devDependencies['@ueno/stylelint-config'] = '^1.1.0';
+  appPackage.devDependencies['@ueno/tslint-config'] = '^1.0.1';
   appPackage.devDependencies['gsap-tools'] = '^1.0.3';
   appPackage.devDependencies['node-sass'] = '^4.11.0';
   appPackage.devDependencies['stylelint'] = '^9.9.0';
@@ -119,6 +119,9 @@ module.exports = function(
     build: 'react-scripts build',
     test: 'react-scripts test',
     eject: 'react-scripts eject',
+    lint: 'npm run tslint && npm run stylelint',
+    tslint: 'tslint --fix \'src/**/*.{ts,tsx}\' -p .',
+    stylelint: 'stylelint \'src/**/*.scss\' --syntax scss',
   };
 
   // Setup the browsers list
