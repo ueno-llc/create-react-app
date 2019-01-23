@@ -35,3 +35,11 @@ yarn create ueno-app cra my-app
 ```bash
 npx create-ueno-app cra my-app
 ```
+
+### Publishing
+
+To push a new update of `@ueno/react-scripts` to npm use:
+
+```bash
+yarn lerna publish --scope="@ueno/react-scripts"
+```
