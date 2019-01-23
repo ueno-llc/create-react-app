@@ -21,7 +21,6 @@ const execSync = require('child_process').execSync;
 const spawn = require('react-dev-utils/crossSpawn');
 const { defaultBrowsers } = require('react-dev-utils/browsersHelper');
 const os = require('os');
-// const verifyTypeScriptSetup = require('./utils/verifyTypeScriptSetup');
 
 function isInGitRepository() {
   try {
@@ -53,7 +52,7 @@ function tryGitInit(appPath) {
     didInit = true;
 
     execSync('git add -A', { stdio: 'ignore' });
-    execSync('git commit -m "Initial commit from CRA Ueno"', {
+    execSync('git commit -m "Init Create Ueno App with with CRA Ueno"', {
       stdio: 'ignore',
     });
     return true;
@@ -244,10 +243,6 @@ module.exports = function(
   } else {
     console.log(' done!');
   }
-
-  // if (useTypeScript) {
-  //   verifyTypeScriptSetup();
-  // }
 
   if (tryGitInit(appPath)) {
     console.log();
