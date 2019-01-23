@@ -29,11 +29,8 @@ create-react-app --scripts-version @ueno/react-scripts my-app
 We also published [Create Ueno App](https://github.com/ueno-llc/create-ueno-app) to easily create projects with different stacks: Gatsby, Next.js, Create React App or React Native, with our config and starters. To create an app using the `@ueno/react-scripts`:
 
 ```bash
-yarn create ueno-app cra my-app
-```
-
-```bash
-npx create-ueno-app cra my-app
+npm install -g create-ueno-app
+create-ueno-app gatsby my-app
 ```
 
 ### Publishing
