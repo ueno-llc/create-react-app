@@ -89,11 +89,13 @@ module.exports = function(
 
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
-  appPackage.dependencies['react'] = '16.8.0-alpha.0';
-  appPackage.dependencies['react-dom'] = '16.8.0-alpha.0';
+  appPackage.dependencies['react'] = '16.8.0';
+  appPackage.dependencies['react-dom'] = '16.8.0';
   appPackage.dependencies['react-helmet'] = '5.2.0';
   appPackage.dependencies['react-router-dom'] = '4.3.1';
   appPackage.dependencies['gsap'] = '2.0.2';
+  appPackage.dependencies['gsap-tools'] = '1.0.3';
+  appPackage.dependencies['lodash'] = '4.17.11';
 
   appPackage.devDependencies = appPackage.devDependencies || {};
   appPackage.devDependencies['@types/node'] = '10.12.18';
@@ -101,8 +103,7 @@ module.exports = function(
   appPackage.devDependencies['@types/react-helmet'] = '5.0.8';
   appPackage.devDependencies['@types/react-router-dom'] = '4.3.1';
   appPackage.devDependencies['@ueno/stylelint-config'] = '1.1.0';
-  appPackage.devDependencies['@ueno/tslint-config'] = '1.0.1';
-  appPackage.devDependencies['gsap-tools'] = '1.0.3';
+  appPackage.devDependencies['@ueno/tslint-config'] = '1.0.3';
   appPackage.devDependencies['node-sass'] = '4.11.0';
   appPackage.devDependencies['stylelint'] = '9.9.0';
   appPackage.devDependencies['tslint'] = '5.12.0';
@@ -116,8 +117,6 @@ module.exports = function(
     dev: 'react-scripts start',
     start: 'react-scripts start',
     build: 'react-scripts build',
-    test: 'react-scripts test',
-    eject: 'react-scripts eject',
     lint: 'npm run tslint && npm run stylelint',
     tslint: "tslint --fix 'src/**/*.{ts,tsx}' -p .",
     stylelint: "stylelint 'src/**/*.scss' --syntax scss",
