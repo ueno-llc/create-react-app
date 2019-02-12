@@ -217,6 +217,41 @@ module.exports = function(
     fs.unlinkSync(templateDependenciesPath);
   }
 
+  // Copy ovewrites files
+  try {
+    fs.copyFileSync(
+      path.join(__dirname, './overwrites/Link.tsx'),
+      path.join(appPath, 'src/components/link/Link.tsx')
+    );
+  } catch (e) {
+    console.log("-Can't copy Link.tsx to src/components/link/Link.tsx", e);
+  }
+
+  try {
+    fs.copyFileSync(
+      path.join(__dirname, './overwrites/index.tsx'),
+      path.join(appPath, 'src/index.tsx')
+    );
+  } catch (e) {
+    console.log("-Can't copy index.tsx to src/index.tsx", e);
+  }
+
+  try {
+    fs.copyFileSync(
+      path.join(__dirname, './overwrites/serviceWorker.ts'),
+      path.join(appPath, 'src/serviceWorker.ts')
+    );
+  } catch (e) {
+    console.log("-Can't copy serviceWorker.ts to src/serviceWorker.ts", e);
+  }
+
+  // Remove readme.md file from src submodule
+  try {
+    fs.unlinkSync(path.join(appPath, 'src/README.md'));
+  } catch (e) {
+    console.log("-Can't remove README.md from src/", e);
+  }
+
   // Install react and react-dom for backward compatibility with old CRA cli
   // which doesn't install react and react-dom along with react-scripts
   // or template is presetend (via --internal-testing-template)
