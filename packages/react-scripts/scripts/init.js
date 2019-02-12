@@ -94,7 +94,7 @@ module.exports = function(
   appPackage.dependencies['react-helmet'] = '5.2.0';
   appPackage.dependencies['react-router-dom'] = '4.3.1';
   appPackage.dependencies['gsap'] = '2.0.2';
-  appPackage.dependencies['gsap-tools'] = '1.0.7';
+  appPackage.dependencies['gsap-tools'] = '1.0.8';
   appPackage.dependencies['lodash'] = '4.17.11';
 
   appPackage.devDependencies = appPackage.devDependencies || {};
