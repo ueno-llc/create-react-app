@@ -1,8 +1,8 @@
-[![logo](https://user-images.githubusercontent.com/937328/51542949-598cda00-1e54-11e9-857b-945cc392dc4c.png)](https://ueno.co/?utm_source=github&utm_campaign=cra-ueno)
+[![logo](https://user-images.githubusercontent.com/937328/53345335-9133e980-390c-11e9-9e81-d7c000195415.png)](https://ueno.co/?utm_source=github&utm_campaign=ueno-cra-starter)
 <br /><br />
 ![banner](https://user-images.githubusercontent.com/937328/52721829-69ef2b00-2fa2-11e9-9f3b-8dec3b4e2b45.png)
 <br /><br />
-[![about](https://user-images.githubusercontent.com/937328/51540139-999c8e80-1e4d-11e9-866d-284657a34744.png)](https://ueno.co/contact/?utm_source=github&utm_campaign=cra-ueno)
+[![about](https://user-images.githubusercontent.com/937328/51540139-999c8e80-1e4d-11e9-866d-284657a34744.png)](https://ueno.co/contact/?utm_source=github&utm_campaign=ueno-cra-starter)
 <br /><br />
 
 ## CRA Ueno
