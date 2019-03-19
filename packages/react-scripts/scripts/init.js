@@ -89,17 +89,18 @@ module.exports = function(
 
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
-  appPackage.dependencies['react'] = '16.8.0';
-  appPackage.dependencies['react-dom'] = '16.8.0';
+  appPackage.dependencies['react'] = '16.8.4';
+  appPackage.dependencies['react-dom'] = '16.8.4';
   appPackage.dependencies['react-helmet'] = '5.2.0';
   appPackage.dependencies['react-router-dom'] = '4.3.1';
-  appPackage.dependencies['gsap'] = '2.0.2';
+  appPackage.dependencies['gsap'] = '2.1.2';
   appPackage.dependencies['gsap-tools'] = '1.0.9';
   appPackage.dependencies['lodash'] = '4.17.11';
 
   appPackage.devDependencies = appPackage.devDependencies || {};
-  appPackage.devDependencies['@types/node'] = '10.12.18';
-  appPackage.devDependencies['@types/react-dom'] = '16.0.11';
+  appPackage.devDependencies['@types/node'] = '11.11.3';
+  appPackage.devDependencies['@types/react'] = '16.8.8';
+  appPackage.devDependencies['@types/react-dom'] = '16.8.2';
   appPackage.devDependencies['@types/react-helmet'] = '5.0.8';
   appPackage.devDependencies['@types/react-router-dom'] = '4.3.1';
   appPackage.devDependencies['@ueno/stylelint-config'] = '1.1.2';
@@ -108,7 +109,7 @@ module.exports = function(
   appPackage.devDependencies['stylelint'] = '9.9.0';
   appPackage.devDependencies['tslint'] = '5.12.0';
   appPackage.devDependencies['tslint-react'] = '3.6.0';
-  appPackage.devDependencies['typescript'] = '3.2.2';
+  appPackage.devDependencies['typescript'] = '3.3.3333';
 
   const useTypeScript = false;
 
