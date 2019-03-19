@@ -96,6 +96,7 @@ module.exports = function(
   appPackage.dependencies['gsap'] = '2.1.2';
   appPackage.dependencies['gsap-tools'] = '1.0.9';
   appPackage.dependencies['lodash'] = '4.17.11';
+  appPackage.dependencies['node-sass'] = '4.11.0';
 
   appPackage.devDependencies = appPackage.devDependencies || {};
   appPackage.devDependencies['@types/node'] = '11.11.3';
@@ -105,7 +106,6 @@ module.exports = function(
   appPackage.devDependencies['@types/react-router-dom'] = '4.3.1';
   appPackage.devDependencies['@ueno/stylelint-config'] = '1.1.2';
   appPackage.devDependencies['@ueno/tslint-config'] = '1.0.3';
-  appPackage.devDependencies['node-sass'] = '4.11.0';
   appPackage.devDependencies['stylelint'] = '9.9.0';
   appPackage.devDependencies['tslint'] = '5.12.0';
   appPackage.devDependencies['tslint-react'] = '3.6.0';
