@@ -1,3 +1,3 @@
-[submodule "packages/cra-template/template/src"]
-	path = packages/cra-template/template/src
+[submodule "packages/ueno-cra-template/template/src"]
+	path = packages/ueno-cra-template/template/src
 	url = https://github.com/ueno-llc/template-www.git
