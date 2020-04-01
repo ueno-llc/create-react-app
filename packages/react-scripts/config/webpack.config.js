@@ -111,6 +111,7 @@ module.exports = function(webpackEnv) {
         },
       },
     ].filter(Boolean);
+
     if (preProcessor) {
       loaders.push({
         loader: require.resolve(preProcessor),
@@ -119,6 +120,7 @@ module.exports = function(webpackEnv) {
         },
       });
     }
+
     return loaders;
   };
 
@@ -442,8 +444,9 @@ module.exports = function(webpackEnv) {
               use: getStyleLoaders({
                 importLoaders: 1,
                 sourceMap: isEnvProduction && shouldUseSourceMap,
-                modules: true,
-                getLocalIdent: getCSSModuleLocalIdent,
+                modules: {
+                  getLocalIdent: getCSSModuleLocalIdent,
+                },
               }),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
@@ -460,8 +463,9 @@ module.exports = function(webpackEnv) {
                 {
                   importLoaders: 2,
                   sourceMap: isEnvProduction && shouldUseSourceMap,
-                  modules: true,
-                  getLocalIdent: getCSSModuleLocalIdent,
+                  modules: {
+                    getLocalIdent: getCSSModuleLocalIdent,
+                  },
                 },
                 'sass-loader'
               ),

@@ -163,11 +163,18 @@ module.exports = function(
   appPackage.dependencies = appPackage.dependencies || {};
   appPackage.devDependencies = appPackage.devDependencies || {};
 
+  // Add styelint in package.json directly
+  appPackage.stylelint = {
+    extends: '@ueno/stylelint-config',
+    ignoreFiles: ['**/*.ts', '**/*.tsx'],
+  };
+
   // Setup the script rules
   const templateScripts = templatePackage.scripts || templateJson.scripts || {};
   appPackage.scripts = Object.assign(
     {
       dev: 'react-scripts start',
+      start: 'react-scripts start',
       build: 'react-scripts build',
       lint: 'npm run tslint && npm run stylelint',
       tslint: "tslint --fix 'src/**/*.{ts,tsx}' -p .",
