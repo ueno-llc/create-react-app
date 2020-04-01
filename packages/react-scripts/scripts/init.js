@@ -298,7 +298,7 @@ module.exports = function(
   }
 
   // Install additional template dev dependencies, if present
-  const templateDevDependencies = file.package.devDependencies;
+  const templateDevDependencies = templatePackage.devDependencies;
 
   if (templateDevDependencies) {
     devs = devs.concat(
