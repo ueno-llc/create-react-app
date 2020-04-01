@@ -273,15 +273,18 @@ module.exports = function(
   let command;
   let remove;
   let args;
+  let devs;
 
   if (useYarn) {
     command = 'yarnpkg';
     remove = 'remove';
     args = ['add'];
+    devs = ['add', '-D'];
   } else {
     command = 'npm';
     remove = 'uninstall';
     args = ['install', '--save', verbose && '--verbose'].filter(e => e);
+    devs = ['install', '--save-dev', verbose && '--verbose'].filter(e => e);
   }
 
   // Install additional template dependencies, if present
@@ -290,6 +293,17 @@ module.exports = function(
     args = args.concat(
       Object.keys(templateDependencies).map(key => {
         return `${key}@${templateDependencies[key]}`;
+      })
+    );
+  }
+
+  // Install additional template dev dependencies, if present
+  const templateDevDependencies = file.package.devDependencies;
+
+  if (templateDevDependencies) {
+    devs = devs.concat(
+      Object.keys(templateDevDependencies).map(key => {
+        return `${key}@${templateDevDependencies[key]}`;
       })
     );
   }
@@ -343,6 +357,18 @@ module.exports = function(
     const proc = spawn.sync(command, args, { stdio: 'inherit' });
     if (proc.status !== 0) {
       console.error(`\`${command} ${args.join(' ')}\` failed`);
+      return;
+    }
+  }
+
+  // Install template dev dependencies
+  if (templateName && devs.length > 1) {
+    console.log();
+    console.log(`Installing template dev dependencies using ${command}...`);
+
+    const proc = spawn.sync(command, devs, { stdio: 'inherit' });
+    if (proc.status !== 0) {
+      console.error(`\`${command} ${devs.join(' ')}\` failed`);
       return;
     }
   }
