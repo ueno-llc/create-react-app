@@ -261,7 +261,7 @@ module.exports = function(
 
   // Remove readme.md file from src submodule
   try {
-    fs.unlinkSync(path.join(appPath, 'src/README.md'));
+    fs.unlinkSync(path.join(appPath, 'README.md'));
   } catch (e) {
     console.log("-Can't remove README.md from src/", e);
   }
@@ -269,7 +269,7 @@ module.exports = function(
   // Install react and react-dom for backward compatibility with old CRA cli
   // which doesn't install react and react-dom along with react-scripts
   // or template is presetend (via --internal-testing-template)
-  if (!isReactInstalled(appPackage) || template) {
+  if (!isReactInstalled(appPackage) || templateName) {
     console.log(`Installing react and react-dom using ${command}...`);
     console.log();
 
