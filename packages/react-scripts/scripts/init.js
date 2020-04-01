@@ -79,13 +79,30 @@ module.exports = function(
   appName,
   verbose,
   originalDirectory,
-  template
+  templateName
 ) {
-  const ownPath = path.dirname(
-    require.resolve(path.join(__dirname, '..', 'package.json'))
-  );
   const appPackage = require(path.join(appPath, 'package.json'));
   const useYarn = fs.existsSync(path.join(appPath, 'yarn.lock'));
+
+  if (!templateName) {
+    console.log('');
+    console.error(
+      `A template was not provided. This is likely because you're using an outdated version of ${chalk.cyan(
+        'create-react-app'
+      )}.`
+    );
+    console.error(
+      `Please note that global installs of ${chalk.cyan(
+        'create-react-app'
+      )} are no longer supported.`
+    );
+    return;
+  }
+
+  const templatePath = path.join(
+    require.resolve(templateName, { paths: [appPath] }),
+    '..'
+  );
 
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
@@ -110,8 +127,6 @@ module.exports = function(
   appPackage.devDependencies['tslint'] = '6.1.0';
   appPackage.devDependencies['tslint-react'] = '4.2.0';
   appPackage.devDependencies['typescript'] = '3.8.3';
-
-  const useTypeScript = false;
 
   // Setup the script rules
   appPackage.scripts = {
@@ -140,14 +155,12 @@ module.exports = function(
   }
 
   // Copy the files for the user
-  const templatePath = template
-    ? path.resolve(originalDirectory, template)
-    : path.join(ownPath, useTypeScript ? 'template-typescript' : 'template');
-  if (fs.existsSync(templatePath)) {
-    fs.copySync(templatePath, appPath);
+  const templateDir = path.join(templatePath, 'template');
+  if (fs.existsSync(templateDir)) {
+    fs.copySync(templateDir, appPath);
   } else {
     console.error(
-      `Could not locate supplied template: ${chalk.green(templatePath)}`
+      `Could not locate supplied template: ${chalk.green(templateDir)}`
     );
     return;
   }
