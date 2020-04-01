@@ -7,13 +7,13 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import NodePath from './NodePath';
+import OptionalChaining from './OptionalChaining';
 
-describe('NODE_PATH', () => {
+describe('optional chaining', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
     return new Promise(resolve => {
-      ReactDOM.render(<NodePath onReady={resolve} />, div);
+      ReactDOM.render(<OptionalChaining onReady={resolve} />, div);
     });
   });
 });

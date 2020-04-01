@@ -7,7 +7,15 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import load from 'absoluteLoad';
+
+function load() {
+  return [
+    { id: 1, name: '1' },
+    { id: 2, name: '2' },
+    { id: 3, name: '3' },
+    { id: 4, name: '4' },
+  ];
+}
 
 export default class extends Component {
   static propTypes = {
@@ -20,7 +28,7 @@ export default class extends Component {
   }
 
   async componentDidMount() {
-    const users = load();
+    const users = load?.();
     this.setState({ users });
   }
 
@@ -30,9 +38,9 @@ export default class extends Component {
 
   render() {
     return (
-      <div id="feature-node-path">
+      <div id="feature-optional-chaining">
         {this.state.users.map(user => (
-          <div key={user.id}>{user.name}</div>
+          <div key={user.id}>{user?.name}</div>
         ))}
       </div>
     );
