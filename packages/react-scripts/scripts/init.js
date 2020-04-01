@@ -290,13 +290,21 @@ module.exports = function(
   }
 
   // Install additional template dependencies, if present
-  // TODO: deprecate 'dependencies' key directly on templateJson
-  const templateDependencies =
-    templatePackage.dependencies || templateJson.dependencies;
+  const templateDependencies = templatePackage.dependencies;
   if (templateDependencies) {
     args = args.concat(
       Object.keys(templateDependencies).map(key => {
         return `${key}@${templateDependencies[key]}`;
+      })
+    );
+  }
+
+  // Install additional template devDependencies, if present
+  const templateDevDependencies = templatePackage.devDependencies;
+  if (templateDevDependencies) {
+    args = args.concat(
+      Object.keys(templateDevDependencies).map(key => {
+        return `${key}@${templateDevDependencies[key]}`;
       })
     );
   }
