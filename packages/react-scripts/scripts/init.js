@@ -161,38 +161,9 @@ module.exports = function(
 
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
-  // appPackage.dependencies['react'] = '16.13.1';
-  // appPackage.dependencies['react-dom'] = '16.13.1';
-  // appPackage.dependencies['react-helmet'] = '5.2.1';
-  // appPackage.dependencies['react-router-dom'] = '5.1.2';
-  // appPackage.dependencies['gsap'] = '3.2.6';
-  // appPackage.dependencies['gsap-tools'] = '1.0.12';
-  // appPackage.dependencies['lodash'] = '4.17.15';
-  // appPackage.dependencies['node-sass'] = '4.13.1';
-
   appPackage.devDependencies = appPackage.devDependencies || {};
-  // appPackage.devDependencies['@types/node'] = '13.9.8';
-  // appPackage.devDependencies['@types/react'] = '16.9.31';
-  // appPackage.devDependencies['@types/react-dom'] = '16.9.6';
-  // appPackage.devDependencies['@types/react-helmet'] = '5.0.15';
-  // appPackage.devDependencies['@types/react-router-dom'] = '5.1.3';
-  // appPackage.devDependencies['@ueno/stylelint-config'] = '1.1.2';
-  // appPackage.devDependencies['@ueno/tslint-config'] = '1.0.8';
-  // appPackage.devDependencies['stylelint'] = '13.2.1';
-  // appPackage.devDependencies['tslint'] = '6.1.0';
-  // appPackage.devDependencies['tslint-react'] = '4.2.0';
-  // appPackage.devDependencies['typescript'] = '3.8.3';
 
   // Setup the script rules
-  // appPackage.scripts = {
-  //   dev: 'react-scripts start',
-  //   start: 'react-scripts start',
-  //   build: 'react-scripts build',
-  //   lint: 'npm run tslint && npm run stylelint',
-  //   tslint: "tslint --fix 'src/**/*.{ts,tsx}' -p .",
-  //   stylelint: "stylelint 'src/**/*.scss' --syntax scss",
-  // };
-
   const templateScripts = templatePackage.scripts || templateJson.scripts || {};
   appPackage.scripts = Object.assign(
     {
