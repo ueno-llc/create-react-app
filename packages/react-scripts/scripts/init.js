@@ -104,6 +104,61 @@ module.exports = function(
     '..'
   );
 
+  let templateJsonPath;
+  if (templateName) {
+    templateJsonPath = path.join(templatePath, 'template.json');
+  } else {
+    // TODO: Remove support for this in v4.
+    templateJsonPath = path.join(appPath, '.template.dependencies.json');
+  }
+
+  let templateJson = {};
+  if (fs.existsSync(templateJsonPath)) {
+    templateJson = require(templateJsonPath);
+  }
+
+  const templatePackage = templateJson.package || {};
+
+  // Keys to ignore in templatePackage
+  const templatePackageBlacklist = [
+    'name',
+    'version',
+    'description',
+    'keywords',
+    'bugs',
+    'license',
+    'author',
+    'contributors',
+    'files',
+    'browser',
+    'bin',
+    'man',
+    'directories',
+    'repository',
+    'devDependencies',
+    'peerDependencies',
+    'bundledDependencies',
+    'optionalDependencies',
+    'engineStrict',
+    'os',
+    'cpu',
+    'preferGlobal',
+    'private',
+    'publishConfig',
+  ];
+
+  // Keys from templatePackage that will be merged with appPackage
+  const templatePackageToMerge = ['dependencies', 'scripts'];
+
+  // Keys from templatePackage that will be added to appPackage,
+  // replacing any existing entries.
+  const templatePackageToReplace = Object.keys(templatePackage).filter(key => {
+    return (
+      !templatePackageBlacklist.includes(key) &&
+      !templatePackageToMerge.includes(key)
+    );
+  });
+
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
   // appPackage.dependencies['react'] = '16.13.1';
@@ -152,6 +207,11 @@ module.exports = function(
 
   // Setup the browsers list
   appPackage.browserslist = defaultBrowsers;
+
+  // Add templatePackage keys/values to appPackage, replacing existing entries
+  templatePackageToReplace.forEach(key => {
+    appPackage[key] = templatePackage[key];
+  });
 
   fs.writeFileSync(
     path.join(appPath, 'package.json'),
