@@ -338,33 +338,19 @@ module.exports = function(
   try {
     fs.unlinkSync(path.join(appPath, 'README.md'));
   } catch (e) {
-    console.log("-Can't remove README.md from src/", e);
+    console.log("-Can't remove README.md from root", e);
   }
 
-  // Install react and react-dom for backward compatibility with old CRA cli
-  // which doesn't install react and react-dom along with react-scripts
-  // or template is presetend (via --internal-testing-template)
-  if (!isReactInstalled(appPackage) || templateName) {
-    console.log(`Installing react and react-dom using ${command}...`);
+  // Install template dependencies, and react and react-dom if missing.
+  if ((!isReactInstalled(appPackage) || templateName) && args.length > 1) {
     console.log();
+    console.log(`Installing template dependencies using ${command}...`);
 
     const proc = spawn.sync(command, args, { stdio: 'inherit' });
     if (proc.status !== 0) {
       console.error(`\`${command} ${args.join(' ')}\` failed`);
       return;
     }
-  }
-
-  // Install dependencies
-  console.log();
-  console.log('Installing @ueno packages...');
-  console.log();
-  const proc = spawn.sync(command, ['install'], { stdio: 'inherit' });
-  if (proc.status !== 0) {
-    console.error(`\`${command} install\` failed`);
-    return;
-  } else {
-    console.log(' done!');
   }
 
   // Remove template
