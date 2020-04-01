@@ -1,14 +1,6 @@
 {
   "package": {
     "dependencies": {
-      "@types/gsap": "1.20.2",
-      "@types/node": "^13.9.8",
-      "@types/react": "^16.9.31",
-      "@types/react-dom": "^16.9.6",
-      "@types/react-helmet": "^5.0.15",
-      "@types/react-router-dom": "^5.1.3",
-      "@ueno/stylelint-config": "^1.1.2",
-      "@ueno/tslint-config": "^1.0.8",
       "react": "16.13.1",
       "react-dom": "16.13.1",
       "react-helmet": "5.2.1",
@@ -17,10 +9,19 @@
       "gsap-tools": "1.0.12",
       "lodash": "4.17.15",
       "node-sass": "4.13.1",
+      "typescript": "3.8.3"
+    },
+    "devDependencies": {
+      "@types/node": "^13.9.8",
+      "@types/react": "^16.9.31",
+      "@types/react-dom": "^16.9.6",
+      "@types/react-helmet": "^5.0.15",
+      "@types/react-router-dom": "^5.1.3",
+      "@ueno/stylelint-config": "^1.1.2",
+      "@ueno/tslint-config": "^1.0.8",
       "stylelint": "^13.2.1",
       "tslint": "^6.1.0",
-      "tslint-react": "^4.2.0",
-      "typescript": "3.8.3"
+      "tslint-react": "^4.2.0"
     }
   }
 }
