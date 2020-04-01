@@ -164,6 +164,8 @@ module.exports = function(
     );
   });
 
+  console.log('-templatePackageToReplace', templatePackageToReplace);
+
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
   appPackage.devDependencies = appPackage.devDependencies || {};
@@ -173,6 +175,8 @@ module.exports = function(
     extends: '@ueno/stylelint-config',
     ignoreFiles: ['**/*.ts', '**/*.tsx'],
   };
+
+  console.log('-templatePackage', templatePackage);
 
   // Setup the script rules
   const templateScripts = templatePackage.scripts || templateJson.scripts || {};
@@ -204,6 +208,7 @@ module.exports = function(
 
   // Add templatePackage keys/values to appPackage, replacing existing entries
   templatePackageToReplace.forEach(key => {
+    console.log('-key', key);
     appPackage[key] = templatePackage[key];
   });
 
