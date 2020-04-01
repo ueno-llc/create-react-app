@@ -1,0 +1,28 @@
+{
+  "name": "@ueno/cra-template",
+  "version": "1.0.3",
+  "keywords": [
+    "react",
+    "create-react-app",
+    "template",
+    "typescript"
+  ],
+  "description": "The base template for Create React App.",
+  "main": "template.json",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ueno-llc/ueno-cra-starter.git",
+    "directory": "packages/cra-template"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.10"
+  },
+  "bugs": {
+    "url": "https://github.com/ueno-llc/ueno-cra-starter/issues"
+  },
+  "files": [
+    "template",
+    "template.json"
+  ]
+}
