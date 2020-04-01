@@ -109,7 +109,6 @@ module.exports = function(
     require.resolve(templateName, { paths: [appPath] }),
     '..'
   );
-  console.log('-templatePath', templatePath);
 
   let templateJsonPath;
   if (templateName) {
@@ -119,15 +118,12 @@ module.exports = function(
     templateJsonPath = path.join(appPath, '.template.dependencies.json');
   }
 
-  console.log('-templateJsonPath', templateJsonPath);
-
   let templateJson = {};
   if (fs.existsSync(templateJsonPath)) {
     templateJson = require(templateJsonPath);
   }
 
   const templatePackage = templateJson.package || {};
-  console.log('-templatePackage', templatePackage);
 
   // Keys to ignore in templatePackage
   const templatePackageBlacklist = [
