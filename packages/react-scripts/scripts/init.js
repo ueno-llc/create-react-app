@@ -168,10 +168,29 @@ module.exports = function(
   appPackage.dependencies = appPackage.dependencies || {};
   appPackage.devDependencies = appPackage.devDependencies || {};
 
+  // Add husky
+  appPackage.husky = {
+    hooks: {
+      'pre-commit': 'lint-staged',
+    },
+  };
+
+  // Add lint-staged
+  appPackage['lint-staged'] = {
+    '*.{ts,tsx,js,jsx,json,md}': ['prettier --write'],
+    '*.{ts,tsx}': ['tslint --fix'],
+  };
+
   // Add styelint in package.json directly
   appPackage.stylelint = {
-    extends: '@ueno/stylelint-config',
-    ignoreFiles: ['**/*.ts', '**/*.tsx'],
+    extends: 'stylelint-config-recommended',
+  };
+
+  // Add prettier
+  appPackage.prettier = {
+    singleQuote: true,
+    trailingComma: 'all',
+    printWidth: 100,
   };
 
   // Setup the script rules
@@ -181,9 +200,10 @@ module.exports = function(
       dev: 'react-scripts start',
       start: 'react-scripts start',
       build: 'react-scripts build',
-      lint: 'npm run tslint && npm run stylelint',
-      tslint: "tslint --fix 'src/**/*.{ts,tsx}' -p .",
+      lint: 'npm run prettier && npm run tslint && npm run stylelint',
+      tslint: "tslint --fix 'src/**/*.{ts,tsx}' --project src/tsconfig.json",
       stylelint: "stylelint 'src/**/*.scss' --syntax scss",
+      prettier: "prettier --list-different '**/*.{ts,tsx,js,jsx,json,md}'",
     },
     templateScripts
   );
