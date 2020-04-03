@@ -184,6 +184,30 @@ module.exports = function(
   // Add styelint in package.json directly
   appPackage.stylelint = {
     extends: 'stylelint-config-recommended',
+    rules: {
+      'at-rule-no-unknown': [
+        true,
+        {
+          ignoreAtRules: [
+            'if',
+            'else',
+            'mixin',
+            'each',
+            'include',
+            'function',
+            'return',
+            'warn',
+            'for',
+          ],
+        },
+      ],
+      'selector-pseudo-class-no-unknown': [
+        true,
+        {
+          ignorePseudoClasses: ['global'],
+        },
+      ],
+    },
   };
 
   // Add prettier
@@ -201,7 +225,7 @@ module.exports = function(
       start: 'react-scripts start',
       build: 'react-scripts build',
       lint: 'npm run prettier && npm run tslint && npm run stylelint',
-      tslint: "tslint --fix 'src/**/*.{ts,tsx}' --project src/tsconfig.json",
+      tslint: "tslint --fix 'src/**/*.{ts,tsx}' --project tsconfig.json",
       stylelint: "stylelint 'src/**/*.scss' --syntax scss",
       prettier: "prettier --list-different '**/*.{ts,tsx,js,jsx,json,md}'",
     },
