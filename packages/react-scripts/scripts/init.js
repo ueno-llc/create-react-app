@@ -168,6 +168,11 @@ module.exports = function(
   appPackage.dependencies = appPackage.dependencies || {};
   appPackage.devDependencies = appPackage.devDependencies || {};
 
+  // Add resolutions object
+  appPackage.resolutions = {
+    '@types/react': '16.9.31',
+  };
+
   // Add husky
   appPackage.husky = {
     hooks: {
