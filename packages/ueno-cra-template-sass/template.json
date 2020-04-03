@@ -10,16 +10,19 @@
       "typescript": "3.8.3"
     },
     "devDependencies": {
-      "@types/node": "^13.9.8",
-      "@types/react": "^16.9.31",
-      "@types/react-dom": "^16.9.6",
-      "@types/react-helmet": "^5.0.15",
-      "@types/react-router-dom": "^5.1.3",
-      "@ueno/stylelint-config": "^1.1.2",
-      "@ueno/tslint-config": "^1.0.8",
-      "stylelint": "^13.2.1",
-      "tslint": "^6.1.0",
-      "tslint-react": "^4.2.0"
+      "@types/node": "13.9.8",
+      "@types/react": "16.9.31",
+      "@types/react-dom": "16.9.6",
+      "@types/react-helmet": "5.0.15",
+      "@types/react-router-dom": "5.1.3",
+      "husky": "4.2.3",
+      "lint-staged": "10.1.1",
+      "prettier": "2.0.2",
+      "stylelint": "13.2.1",
+      "stylelint-config-recommended": "3.0.0",
+      "tslint": "6.1.0",
+      "tslint-config-prettier": "1.18.0",
+      "tslint-react": "4.2.0"
     }
   }
 }
