@@ -16,6 +16,7 @@ This package is a fork of the original [Create React App](https://github.com/fac
 - CSS modules
 - SASS support
 - Typescript
+- Prettier, lint-staged, husky, stylelint
 
 ### Installation
 
