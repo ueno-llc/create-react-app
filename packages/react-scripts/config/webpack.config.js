@@ -120,23 +120,15 @@ module.exports = function(webpackEnv) {
     ].filter(Boolean);
 
     if (preProcessor) {
-      loaders.push(
-        {
-          loader: require.resolve('resolve-url-loader'),
-          options: {
-            sourceMap: isEnvProduction && shouldUseSourceMap,
-            sassOptions: {
-              outputStyle: 'compact',
-            },
+      loaders.push({
+        loader: require.resolve(preProcessor),
+        options: {
+          sourceMap: isEnvProduction && shouldUseSourceMap,
+          sassOptions: {
+            outputStyle: 'compact',
           },
         },
-        {
-          loader: require.resolve(preProcessor),
-          options: {
-            sourceMap: true,
-          },
-        }
-      );
+      });
     }
 
     return loaders;
