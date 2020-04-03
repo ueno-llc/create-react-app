@@ -16,7 +16,7 @@ process.on('unhandledRejection', err => {
 
 const fs = require('fs-extra');
 const path = require('path');
-const chalk = require('chalk');
+const chalk = require('react-dev-utils/chalk');
 const execSync = require('child_process').execSync;
 const spawn = require('react-dev-utils/crossSpawn');
 const { defaultBrowsers } = require('react-dev-utils/browsersHelper');
@@ -312,41 +312,6 @@ module.exports = function(
   // which doesn't install react and react-dom along with react-scripts
   if (!isReactInstalled(appPackage)) {
     args = args.concat(['react', 'react-dom']);
-  }
-
-  // Copy ovewrites files
-  try {
-    fs.copyFileSync(
-      path.join(__dirname, './overwrites/Link.tsx'),
-      path.join(appPath, 'src/components/link/Link.tsx')
-    );
-  } catch (e) {
-    console.log("-Can't copy Link.tsx to src/components/link/Link.tsx", e);
-  }
-
-  try {
-    fs.copyFileSync(
-      path.join(__dirname, './overwrites/index.tsx'),
-      path.join(appPath, 'src/index.tsx')
-    );
-  } catch (e) {
-    console.log("-Can't copy index.tsx to src/index.tsx", e);
-  }
-
-  try {
-    fs.copyFileSync(
-      path.join(__dirname, './overwrites/serviceWorker.ts'),
-      path.join(appPath, 'src/serviceWorker.ts')
-    );
-  } catch (e) {
-    console.log("-Can't copy serviceWorker.ts to src/serviceWorker.ts", e);
-  }
-
-  // Remove readme.md file from src submodule
-  try {
-    fs.unlinkSync(path.join(appPath, 'README.md'));
-  } catch (e) {
-    console.log("-Can't remove README.md from root", e);
   }
 
   // Install template dependencies, and react and react-dom if missing.
