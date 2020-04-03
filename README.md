@@ -18,19 +18,16 @@ This package is a fork of the original [Create React App](https://github.com/fac
 - Typescript
 - Prettier, lint-staged, husky, stylelint
 
-### Installation
-
-Install [create-ueno-app](https://github.com/ueno-llc/create-ueno-app):
+### Usage with [create-ueno-app](https://github.com/ueno-llc/create-ueno-app):
 
 ```bash
-npm install -g create-ueno-app
-yarn global add create-ueno-app
+npx create-ueno-app cra my-app
 ```
 
-Create your app:
+or
 
 ```bash
-create-ueno-app cra my-app
+yarn create ueno-app cra my-app
 ```
 
 <details>
@@ -51,4 +48,10 @@ To push a new update of `@ueno/react-scripts` to npm use:
 
 ```bash
 yarn lerna publish --scope="@ueno/react-scripts"
+```
+
+To push a new update of `@ueno/cra-template` to npm use:
+
+```bash
+yarn lerna publish --scope="@ueno/cra-template"
 ```
