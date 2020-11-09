@@ -1,3 +1,7 @@
+# WARNING
+
+## This starter kit has been deprecated and is no longer being actively maintained by Ueno. 
+
 [![logo](https://user-images.githubusercontent.com/937328/53345335-9133e980-390c-11e9-9e81-d7c000195415.png)](https://ueno.co/?utm_source=github&utm_campaign=ueno-cra-starter)
 <br /><br />
 ![banner](https://user-images.githubusercontent.com/937328/53875765-3762ac00-3ffd-11e9-8ca3-03db4337a1f0.png)
